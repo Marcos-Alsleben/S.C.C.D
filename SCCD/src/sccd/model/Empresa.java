@@ -11,15 +11,13 @@ package sccd.model;
  */
 public class Empresa {
     
-    // Atributos
-    
+    // Atributos    
     private int id;
     private String nome;
     private String endereco;
     private String observacao;
     
     //Getters e Setters
-
     public int getId() {
         return id;
     }

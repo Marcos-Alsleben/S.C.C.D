@@ -11,8 +11,7 @@ package sccd.model;
  */
 public class Desenhos {
     
-    // Atributos
-    
+    // Atributos    
     private int id;
     private int faca;
     private float comprimento;
@@ -24,7 +23,6 @@ public class Desenhos {
     private String datahora;
     
     //Getters e Setters
-
     public int getId() {
         return id;
     }
