@@ -14,10 +14,12 @@ public class Empresa {
     // Atributos    
     private int id;
     private String nome;
+    private String telefone;
     private String endereco;
     private String observacao;
     
     //Getters e Setters
+
     public int getId() {
         return id;
     }
@@ -32,6 +34,14 @@ public class Empresa {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 
     public String getEndereco() {
@@ -49,6 +59,7 @@ public class Empresa {
     public void setObservacao(String observacao) {
         this.observacao = observacao;
     }
+    
     
     
 }

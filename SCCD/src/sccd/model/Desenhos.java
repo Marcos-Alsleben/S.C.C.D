@@ -17,12 +17,15 @@ public class Desenhos {
     private float comprimento;
     private float largura;
     private float altura;
+    private String colagem;
+    private String abas;
     private String berco;
     private String promocional;
     private String operador;
     private String datahora;
     
     //Getters e Setters
+
     public int getId() {
         return id;
     }
@@ -63,6 +66,22 @@ public class Desenhos {
         this.altura = altura;
     }
 
+    public String getColagem() {
+        return colagem;
+    }
+
+    public void setColagem(String colagem) {
+        this.colagem = colagem;
+    }
+
+    public String getAbas() {
+        return abas;
+    }
+
+    public void setAbas(String abas) {
+        this.abas = abas;
+    }
+
     public String getBerco() {
         return berco;
     }
@@ -94,6 +113,5 @@ public class Desenhos {
     public void setDatahora(String datahora) {
         this.datahora = datahora;
     }
-    
     
 }
