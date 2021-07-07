@@ -18,6 +18,8 @@ CREATE TABLE tb_desenhos (
   comprimento float (5,2),
   largura float (5,2),
   altura float (5,2),
+  colagem varchar (30),
+  abas varchar (30),
   berco varchar(30),
   promocional varchar(30),
   operador varchar(100),
