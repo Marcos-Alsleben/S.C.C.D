@@ -6,12 +6,93 @@
 package sccd.view;
 
 import java.awt.CardLayout;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import sccd.dao.DesenhosDAO;
+import sccd.model.Desenhos;
 
 /**
  *
  * @author mrs_a
  */
 public class FrmPrincipal extends javax.swing.JFrame {
+    
+    // Metodo Pegar Data e Hora
+    public String DH() {
+        Date data = new Date();
+        SimpleDateFormat formatar = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String dataFormatada = formatar.format(data);
+        
+        return dataFormatada;        
+    }
+    
+    // Metodo pesquisar na lista  de desenhos
+    public void PesquisarDesenhos() {
+        String faca = "%" + txt_pesquisaFaca.getText() + "%";
+        String comprimento = "%" + txt_pesquisaComprimento.getText() + "%";
+        String largura = "%" + txt_pesquisaLargura.getText() + "%";
+        String altura = "%" + txt_pesquisaAltura.getText() + "%";
+
+        DesenhosDAO dao = new DesenhosDAO();
+        List<Desenhos> lista = dao.pesquisar(faca, comprimento, largura, altura);
+        DefaultTableModel dados = (DefaultTableModel) tb_desenhos.getModel();
+        dados.setNumRows(0);
+        for (Desenhos c : lista) {
+            dados.addRow(new Object[]{
+                c.getFaca(),
+                c.getComprimento(),
+                c.getLargura(),
+                c.getAltura(),
+                c.getColagem(),
+                c.getAbas(),
+                c.getBerco(),
+                c.getPromocional(),
+            });
+
+        }
+    }
+    
+    //Metodo cadastrar desenho
+    public void CadastrarDesenho(){
+        Desenhos obj = new Desenhos();
+        obj.setFaca(Integer.parseInt(txt_cadastrarFaca.getText()));
+        obj.setComprimento(Float.parseFloat(txt_cadastrarComprimento.getText().replace(",", ".")));
+        obj.setLargura(Float.parseFloat(txt_cadastrarLargura.getText().replace(",", ".")));
+        obj.setAltura(Float.parseFloat(txt_cadastrarAltura.getText().replace(",", ".")));
+        obj.setColagem(cb_cadastrarColagem.getSelectedItem().toString());
+        obj.setAbas(cb_cadastrarAbas.getSelectedItem().toString());
+        obj.setBerco(cb_cadastrarBerco.getSelectedItem().toString());
+        obj.setPromocional(cb_cadastrarPromocional.getSelectedItem().toString());
+        obj.setOperador(lb_usuario.getText());
+        obj.setDatahora(DH());        
+
+        DesenhosDAO dao = new DesenhosDAO();
+
+        dao.cadastrar(obj);
+    }
+    
+    //Metodo listar desenhos
+    public void ListarDesenhos(){
+        DesenhosDAO dao = new DesenhosDAO();
+        List<Desenhos> lista = dao.listar();
+        DefaultTableModel dados = (DefaultTableModel) tb_desenhos.getModel();
+        dados.setNumRows(0);
+        for (Desenhos c : lista) {
+            dados.addRow(new Object[]{
+                c.getFaca(),
+                c.getComprimento(),
+                c.getLargura(),
+                c.getAltura(),
+                c.getColagem(),
+                c.getAbas(),
+                c.getBerco(),
+                c.getPromocional()
+            });
+
+        }
+    }
     
     //Metodo mostrar cardLayout do jPanelPrincipal
     public void MostraCard_jPanelPrincipal(String card){
@@ -24,10 +105,26 @@ public class FrmPrincipal extends javax.swing.JFrame {
         CardLayout cl = (CardLayout) jPanelAdminPrincipal.getLayout();
         cl.show(jPanelAdminPrincipal, card);
     }
-
-    /**
-     * Creates new form Principal
-     */
+    
+    //Metodo limpar campos de cadastro
+    public void LimpaCamposCadastro(){
+        txt_cadastrarFaca.setText(null);
+        txt_cadastrarComprimento.setText(null);
+        txt_cadastrarLargura.setText(null);
+        txt_cadastrarAltura.setText(null);
+        cb_cadastrarColagem.setSelectedItem("*");
+        cb_cadastrarAbas.setSelectedItem("*");
+        cb_cadastrarBerco.setSelectedItem("*");
+        cb_cadastrarPromocional.setSelectedItem("*");
+    }
+    
+    //Metodo limpar campos de login
+    public void LimpaCamposLogin(){
+        txt_loginNome.setText(null);
+        txt_loginSenha.setText(null);
+    }
+    
+    //Construtor
     public FrmPrincipal() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -81,14 +178,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jComboBox4 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jComboBox3 = new javax.swing.JComboBox<>();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        cb_cadastrarPromocional = new javax.swing.JComboBox<>();
+        cb_cadastrarBerco = new javax.swing.JComboBox<>();
+        cb_cadastrarAbas = new javax.swing.JComboBox<>();
+        cb_cadastrarColagem = new javax.swing.JComboBox<>();
+        txt_cadastrarAltura = new javax.swing.JTextField();
+        txt_cadastrarComprimento = new javax.swing.JTextField();
+        txt_cadastrarLargura = new javax.swing.JTextField();
+        txt_cadastrarFaca = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jSeparator7 = new javax.swing.JSeparator();
@@ -109,8 +206,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        txt_loginNome = new javax.swing.JTextField();
+        txt_loginSenha = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jPanelAdminPrincipal = new javax.swing.JPanel();
@@ -121,11 +218,16 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1000, 640));
-        setPreferredSize(new java.awt.Dimension(1000, 640));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         btn_pesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Pesquisar_64.png"))); // NOI18N
         btn_pesquisar.setToolTipText("Pesquisar");
         btn_pesquisar.setBorder(null);
+        btn_pesquisar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_pesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_pesquisarActionPerformed(evt);
@@ -135,6 +237,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btn_cadastrarDesenho.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Adicionar_64.png"))); // NOI18N
         btn_cadastrarDesenho.setToolTipText("Adicionar Registro");
         btn_cadastrarDesenho.setBorder(null);
+        btn_cadastrarDesenho.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_cadastrarDesenho.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_cadastrarDesenhoActionPerformed(evt);
@@ -144,6 +247,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btn_configurar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Configuração._64.png"))); // NOI18N
         btn_configurar.setToolTipText("Configuração");
         btn_configurar.setBorder(null);
+        btn_configurar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_configurar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_configurarActionPerformed(evt);
@@ -153,6 +257,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btn_administrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Protegido_64.png"))); // NOI18N
         btn_administrar.setToolTipText("Acesso Administrador");
         btn_administrar.setBorder(null);
+        btn_administrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_administrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_administrarActionPerformed(evt);
@@ -162,6 +267,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btn_logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Sair_24.png"))); // NOI18N
         btn_logout.setToolTipText("Logout");
         btn_logout.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btn_logout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_logout.setEnabled(false);
 
         lb_usuario.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -186,7 +292,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false, false, false
@@ -223,14 +329,17 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         btn_editarDesenho.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Editar_24.png"))); // NOI18N
         btn_editarDesenho.setToolTipText("Alterar");
+        btn_editarDesenho.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_editarDesenho.setEnabled(false);
 
         btn_escluirDesenho.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Remover_24.png"))); // NOI18N
         btn_escluirDesenho.setToolTipText("Alterar");
+        btn_escluirDesenho.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_escluirDesenho.setEnabled(false);
 
         btn_visualizarDesenho.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Visualizar_24.png"))); // NOI18N
         btn_visualizarDesenho.setToolTipText("Alterar");
+        btn_visualizarDesenho.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
         jLabel1.setText("Pesquisar");
@@ -260,18 +369,38 @@ public class FrmPrincipal extends javax.swing.JFrame {
         txt_pesquisaFaca.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         txt_pesquisaFaca.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txt_pesquisaFaca.setToolTipText("Faca");
+        txt_pesquisaFaca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_pesquisaFacaKeyPressed(evt);
+            }
+        });
 
         txt_pesquisaComprimento.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         txt_pesquisaComprimento.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txt_pesquisaComprimento.setToolTipText("Comprimento");
+        txt_pesquisaComprimento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_pesquisaComprimentoKeyPressed(evt);
+            }
+        });
 
         txt_pesquisaLargura.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         txt_pesquisaLargura.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txt_pesquisaLargura.setToolTipText("Largura");
+        txt_pesquisaLargura.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_pesquisaLarguraKeyPressed(evt);
+            }
+        });
 
         txt_pesquisaAltura.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         txt_pesquisaAltura.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txt_pesquisaAltura.setToolTipText("Altura");
+        txt_pesquisaAltura.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_pesquisaAlturaKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -383,29 +512,25 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jLabel15.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel15.setText("Promocional");
 
-        jComboBox4.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Sim", "Não" }));
+        cb_cadastrarPromocional.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        cb_cadastrarPromocional.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "*", "Sim", "Não" }));
 
-        jComboBox2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Sim", "Não" }));
+        cb_cadastrarBerco.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        cb_cadastrarBerco.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "*", "Sim", "Não" }));
 
-        jComboBox3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cb_cadastrarAbas.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        cb_cadastrarAbas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "*" }));
 
-        jComboBox1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cb_cadastrarColagem.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        cb_cadastrarColagem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "*" }));
 
-        jTextField5.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jTextField5.setText("284569");
+        txt_cadastrarAltura.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
-        jTextField4.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jTextField4.setText("284569");
+        txt_cadastrarComprimento.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
-        jTextField2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jTextField2.setText("284569");
+        txt_cadastrarLargura.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
-        jTextField3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jTextField3.setText("284569");
+        txt_cadastrarFaca.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
         jLabel10.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel10.setText("Largura:");
@@ -414,10 +539,31 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jLabel11.setText("Altura:");
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Cancelar2_32.png"))); // NOI18N
+        jButton3.setToolTipText("Cancelar");
+        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Limpar_32.png"))); // NOI18N
+        jButton4.setToolTipText("Limpar");
+        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Confirmar2_32.png"))); // NOI18N
+        jButton5.setToolTipText("Salvar");
+        jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -434,31 +580,31 @@ public class FrmPrincipal extends javax.swing.JFrame {
                     .addComponent(jLabel11))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_cadastrarFaca, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_cadastrarComprimento, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(txt_cadastrarAltura, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_cadastrarLargura, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))))
             .addComponent(jSeparator10, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(cb_cadastrarColagem, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(jSeparator11)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(cb_cadastrarAbas, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(cb_cadastrarPromocional, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(jSeparator13)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(cb_cadastrarBerco, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(jSeparator12)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -476,7 +622,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel8)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_cadastrarFaca, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -492,36 +638,36 @@ public class FrmPrincipal extends javax.swing.JFrame {
                         .addComponent(jLabel11))
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGap(4, 4, 4)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_cadastrarComprimento, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(4, 4, 4)
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel9Layout.createSequentialGroup()
                                 .addGap(37, 37, 37)
-                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(txt_cadastrarAltura, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txt_cadastrarLargura, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(0, 0, 0)
                 .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cb_cadastrarColagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12))
                 .addGap(0, 0, 0)
                 .addComponent(jSeparator11, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel13)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cb_cadastrarAbas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, 0)
                 .addComponent(jSeparator13, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cb_cadastrarBerco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14))
                 .addGap(0, 0, 0)
                 .addComponent(jSeparator12, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cb_cadastrarPromocional, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15))
                 .addGap(0, 0, 0)
                 .addComponent(jSeparator14, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -599,21 +745,28 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(102, 102, 102));
         jLabel6.setText("LOGIN");
 
-        jTextField1.setBackground(new java.awt.Color(214, 217, 223));
-        jTextField1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(0, 0, 102));
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nome", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14))); // NOI18N
+        txt_loginNome.setBackground(new java.awt.Color(214, 217, 223));
+        txt_loginNome.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        txt_loginNome.setForeground(new java.awt.Color(0, 0, 102));
+        txt_loginNome.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txt_loginNome.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nome", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14))); // NOI18N
 
-        jPasswordField1.setBackground(new java.awt.Color(214, 217, 223));
-        jPasswordField1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jPasswordField1.setForeground(new java.awt.Color(0, 0, 102));
-        jPasswordField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jPasswordField1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Senha", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14))); // NOI18N
+        txt_loginSenha.setBackground(new java.awt.Color(214, 217, 223));
+        txt_loginSenha.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        txt_loginSenha.setForeground(new java.awt.Color(0, 0, 102));
+        txt_loginSenha.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txt_loginSenha.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Senha", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14))); // NOI18N
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Confirmar2_32.png"))); // NOI18N
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Cancelar2_32.png"))); // NOI18N
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -623,8 +776,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_loginNome, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_loginSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel6Layout.createSequentialGroup()
                             .addGap(59, 59, 59)
                             .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -645,9 +798,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txt_loginNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txt_loginSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton2)
@@ -731,6 +884,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btn_logar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Usuario_64.png"))); // NOI18N
         btn_logar.setToolTipText("Login");
         btn_logar.setBorder(null);
+        btn_logar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_logar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_logarActionPerformed(evt);
@@ -818,6 +972,54 @@ public class FrmPrincipal extends javax.swing.JFrame {
         MostraCard_jPanelPrincipal("adminPrincipal");
     }//GEN-LAST:event_btn_administrarActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        LimpaCamposCadastro();
+        MostraCard_jPanelPrincipal("pesquisar");
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        LimpaCamposCadastro();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        LimpaCamposLogin();
+        MostraCard_jPanelPrincipal("pesquisar");
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        CadastrarDesenho();
+        LimpaCamposCadastro();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        ListarDesenhos();
+    }//GEN-LAST:event_formWindowActivated
+
+    private void txt_pesquisaFacaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_pesquisaFacaKeyPressed
+        // TODO add your handling code here:
+        PesquisarDesenhos();
+    }//GEN-LAST:event_txt_pesquisaFacaKeyPressed
+
+    private void txt_pesquisaComprimentoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_pesquisaComprimentoKeyPressed
+        // TODO add your handling code here:
+        PesquisarDesenhos();
+    }//GEN-LAST:event_txt_pesquisaComprimentoKeyPressed
+
+    private void txt_pesquisaLarguraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_pesquisaLarguraKeyPressed
+        // TODO add your handling code here:
+        PesquisarDesenhos();
+    }//GEN-LAST:event_txt_pesquisaLarguraKeyPressed
+
+    private void txt_pesquisaAlturaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_pesquisaAlturaKeyPressed
+        // TODO add your handling code here:
+        PesquisarDesenhos();
+    }//GEN-LAST:event_txt_pesquisaAlturaKeyPressed
+
     /**
      * @param args the command line arguments
      */
@@ -864,15 +1066,15 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btn_logout;
     private javax.swing.JButton btn_pesquisar;
     private javax.swing.JButton btn_visualizarDesenho;
+    private javax.swing.JComboBox<String> cb_cadastrarAbas;
+    private javax.swing.JComboBox<String> cb_cadastrarBerco;
+    private javax.swing.JComboBox<String> cb_cadastrarColagem;
+    private javax.swing.JComboBox<String> cb_cadastrarPromocional;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -904,7 +1106,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelLogin;
     private javax.swing.JPanel jPanelPesquisar;
     private javax.swing.JPanel jPanelPrincipal;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
@@ -920,13 +1121,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JLabel lb_usuario;
     private javax.swing.JTable tb_desenhos;
+    private javax.swing.JTextField txt_cadastrarAltura;
+    private javax.swing.JTextField txt_cadastrarComprimento;
+    private javax.swing.JTextField txt_cadastrarFaca;
+    private javax.swing.JTextField txt_cadastrarLargura;
+    private javax.swing.JTextField txt_loginNome;
+    private javax.swing.JPasswordField txt_loginSenha;
     private javax.swing.JTextField txt_pesquisaAltura;
     private javax.swing.JTextField txt_pesquisaComprimento;
     private javax.swing.JTextField txt_pesquisaFaca;

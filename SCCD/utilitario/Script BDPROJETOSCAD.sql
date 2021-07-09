@@ -13,8 +13,7 @@ USE BDPROJETOSCAD;
 
 /***** TABELA DESENHOS *****/
 CREATE TABLE tb_desenhos (
-  id int auto_increment primary key,
-  faca int(7),
+  faca int(7) auto_increment primary key unique,
   comprimento float (5,2),
   largura float (5,2),
   altura float (5,2),
@@ -23,7 +22,7 @@ CREATE TABLE tb_desenhos (
   berco varchar(30),
   promocional varchar(30),
   operador varchar(100),
-  datahora varchar (255)
+  datahora TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP
 );
 /*****************/
 

@@ -27,7 +27,7 @@ public class DesenhosDAO {
     }
     
     //Metodo cadastrar
-    public void cadastrarDesenhos(Desenhos obj){
+    public void cadastrar(Desenhos obj){
         try {
             //Cria comando sql
             String sql = "insert into tb_desenhos (faca, comprimento, largura, altura, colagem, abas, "
@@ -58,7 +58,7 @@ public class DesenhosDAO {
     }
     
     //Metodo Alterar
-    public void alterarDesenhos(Desenhos obj){
+    public void alterar(Desenhos obj){
         try {
             //Cria comando sql
             String sql = "update tb_desenhos set "
@@ -90,7 +90,7 @@ public class DesenhosDAO {
     }
     
     //Metodo Excluir
-    public void excluirDesenhos(Desenhos obj){
+    public void excluir(Desenhos obj){
         try {
             //Cria o comando sql
             String sql = "delete from tb_desenhos where id";
@@ -110,7 +110,7 @@ public class DesenhosDAO {
     }
     
     //Metodo Listar
-    public List<Desenhos> listarDesenhos(){
+    public List<Desenhos> listar(){
         try {
             //Cria Lista
             List<Desenhos> lista = new ArrayList<>();
@@ -125,7 +125,6 @@ public class DesenhosDAO {
             while (rs.next()){
                 
                 Desenhos obj = new Desenhos();
-                obj.setId(rs.getInt("id"));
                 obj.setFaca(rs.getInt("faca"));
                 obj.setComprimento(rs.getFloat("comprimento"));
                 obj.setLargura(rs.getFloat("largura"));
@@ -148,32 +147,26 @@ public class DesenhosDAO {
     }
     
     //Metoda Pesquisar
-    public List<Desenhos> pesquisarDesenhos(String faca, String comprimento, String largura, String altura, 
-            String colagem, String abas, String berco, String promocional, String operador){
+    public List<Desenhos> pesquisar(String faca, String comprimento, String largura, String altura){
         
         try {
             //Cria a Lista
             List<Desenhos> lista = new ArrayList<>();
             
             //Cria comando sql
-            String sql = "select * from tb_desenhos where faca like? and comprimento <=? and comprimento >=? and "
-                    +"largura <=? and largura >=? and altura <=? and altura >=?";
+            String sql = "select * from tb_desenhos where faca like? and comprimento like? and largura like? and altura like?";
             
             //Conecta ao banco de dados e organiza o comando sql
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, faca);            
-            stmt.setString(2, comprimento);            
-            stmt.setString(3, comprimento);            
-            stmt.setString(4, largura);            
-            stmt.setString(5, largura);            
-            stmt.setString(6, altura);            
-            stmt.setString(7, altura);            
+            stmt.setString(2, comprimento);                        
+            stmt.setString(3, largura);                        
+            stmt.setString(4, altura);                        
             ResultSet rs = stmt.executeQuery();
             
             while (rs.next()){
                 
                 Desenhos obj = new Desenhos();
-                obj.setId(rs.getInt("id"));
                 obj.setFaca(rs.getInt("faca"));
                 obj.setComprimento(rs.getFloat("comprimento"));
                 obj.setLargura(rs.getFloat("largura"));
