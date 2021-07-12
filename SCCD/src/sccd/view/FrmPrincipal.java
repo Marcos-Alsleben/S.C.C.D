@@ -6,9 +6,13 @@
 package sccd.view;
 
 import java.awt.CardLayout;
+import java.awt.Desktop;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import sccd.dao.DesenhosDAO;
 import sccd.model.Desenhos;
@@ -18,22 +22,22 @@ import sccd.model.Desenhos;
  * @author mrs_a
  */
 public class FrmPrincipal extends javax.swing.JFrame {
-    
+
     // Metodo Pegar Data e Hora
     public String DH() {
         Date data = new Date();
         SimpleDateFormat formatar = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String dataFormatada = formatar.format(data);
-        
-        return dataFormatada;        
+
+        return dataFormatada;
     }
-    
+
     // Metodo pesquisar na lista  de desenhos
     public void PesquisarDesenhos() {
         String faca = "%" + txt_pesquisaFaca.getText() + "%";
-        String comprimento = "%" + txt_pesquisaComprimento.getText() + "%";
-        String largura = "%" + txt_pesquisaLargura.getText() + "%";
-        String altura = "%" + txt_pesquisaAltura.getText() + "%";
+        String comprimento = txt_pesquisaComprimento.getText().replace(",", ".") + "%";
+        String largura = txt_pesquisaLargura.getText().replace(",", ".") + "%";
+        String altura = txt_pesquisaAltura.getText().replace(",", ".") + "%";
 
         DesenhosDAO dao = new DesenhosDAO();
         List<Desenhos> lista = dao.pesquisar(faca, comprimento, largura, altura);
@@ -48,14 +52,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 c.getColagem(),
                 c.getAbas(),
                 c.getBerco(),
-                c.getPromocional(),
-            });
+                c.getPromocional(),});
 
         }
     }
-    
+
     //Metodo cadastrar desenho
-    public void CadastrarDesenho(){
+    public void CadastrarDesenho() {
         Desenhos obj = new Desenhos();
         obj.setFaca(Integer.parseInt(txt_cadastrarFaca.getText()));
         obj.setComprimento(Float.parseFloat(txt_cadastrarComprimento.getText().replace(",", ".")));
@@ -66,15 +69,15 @@ public class FrmPrincipal extends javax.swing.JFrame {
         obj.setBerco(cb_cadastrarBerco.getSelectedItem().toString());
         obj.setPromocional(cb_cadastrarPromocional.getSelectedItem().toString());
         obj.setOperador(lb_usuario.getText());
-        obj.setDatahora(DH());        
+        obj.setDatahora(DH());
 
         DesenhosDAO dao = new DesenhosDAO();
 
         dao.cadastrar(obj);
     }
-    
+
     //Metodo listar desenhos
-    public void ListarDesenhos(){
+    public void ListarDesenhos() {
         DesenhosDAO dao = new DesenhosDAO();
         List<Desenhos> lista = dao.listar();
         DefaultTableModel dados = (DefaultTableModel) tb_desenhos.getModel();
@@ -93,21 +96,21 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         }
     }
-    
+
     //Metodo mostrar cardLayout do jPanelPrincipal
-    public void MostraCard_jPanelPrincipal(String card){
+    public void MostraCard_jPanelPrincipal(String card) {
         CardLayout cl = (CardLayout) jPanelPrincipal.getLayout();
         cl.show(jPanelPrincipal, card);
     }
-    
+
     //Metodo mostrar cardLayout do jPanelAdminPrincipal
-    public void MostraCard_jPanelAdminPrincipal(String card){
+    public void MostraCard_jPanelAdminPrincipal(String card) {
         CardLayout cl = (CardLayout) jPanelAdminPrincipal.getLayout();
         cl.show(jPanelAdminPrincipal, card);
     }
-    
+
     //Metodo limpar campos de cadastro
-    public void LimpaCamposCadastro(){
+    public void LimpaCamposCadastro() {
         txt_cadastrarFaca.setText(null);
         txt_cadastrarComprimento.setText(null);
         txt_cadastrarLargura.setText(null);
@@ -117,13 +120,21 @@ public class FrmPrincipal extends javax.swing.JFrame {
         cb_cadastrarBerco.setSelectedItem("*");
         cb_cadastrarPromocional.setSelectedItem("*");
     }
-    
+
     //Metodo limpar campos de login
-    public void LimpaCamposLogin(){
+    public void LimpaCamposLogin() {
         txt_loginNome.setText(null);
         txt_loginSenha.setText(null);
     }
-    
+
+    //Metodo limpar campos de pesquisa
+    public void LimpaCamposPesquisa() {
+        txt_pesquisaFaca.setText("");
+        txt_pesquisaComprimento.setText("");
+        txt_pesquisaLargura.setText("");
+        txt_pesquisaAltura.setText("");
+    }
+
     //Construtor
     public FrmPrincipal() {
         initComponents();
@@ -165,6 +176,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jSeparator5 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
         jSeparator6 = new javax.swing.JSeparator();
+        btn_pesquisarDesenhos = new javax.swing.JButton();
+        btn_limpaCamposPesquisa = new javax.swing.JButton();
+        jSeparator15 = new javax.swing.JSeparator();
+        jSeparator16 = new javax.swing.JSeparator();
         txt_pesquisaFaca = new javax.swing.JTextField();
         txt_pesquisaComprimento = new javax.swing.JTextField();
         txt_pesquisaLargura = new javax.swing.JTextField();
@@ -195,12 +210,30 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jSeparator11 = new javax.swing.JSeparator();
         jSeparator12 = new javax.swing.JSeparator();
         jSeparator13 = new javax.swing.JSeparator();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btn_cancelarCadastroDesenho = new javax.swing.JButton();
+        btn_LimpaCamposCadastroDesenho = new javax.swing.JButton();
+        btn_salvaCadastroDesenho = new javax.swing.JButton();
         jSeparator14 = new javax.swing.JSeparator();
         jPanelConfig = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
+        jl_config = new javax.swing.JLabel();
+        jPanel11 = new javax.swing.JPanel();
+        cb_cadastroAbas = new javax.swing.JComboBox<>();
+        jl_config3 = new javax.swing.JLabel();
+        txt_cadastroAbas = new javax.swing.JTextField();
+        btn_criarAba = new javax.swing.JButton();
+        btn_removerAba = new javax.swing.JButton();
+        btn_limpaCamposCadastroAba = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tb_abasOutros = new javax.swing.JTable();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tb_abasFundoAutomatico = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tb_abasLateral = new javax.swing.JTable();
+        jPanel12 = new javax.swing.JPanel();
+        txt_localPasta = new javax.swing.JTextField();
+        btn_escolherCaminho = new javax.swing.JButton();
+        btn_salvarCaminho = new javax.swing.JButton();
         jPanelLogin = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
@@ -333,13 +366,18 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btn_editarDesenho.setEnabled(false);
 
         btn_escluirDesenho.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Remover_24.png"))); // NOI18N
-        btn_escluirDesenho.setToolTipText("Alterar");
+        btn_escluirDesenho.setToolTipText("Remover");
         btn_escluirDesenho.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_escluirDesenho.setEnabled(false);
 
         btn_visualizarDesenho.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Visualizar_24.png"))); // NOI18N
-        btn_visualizarDesenho.setToolTipText("Alterar");
+        btn_visualizarDesenho.setToolTipText("Visualizar");
         btn_visualizarDesenho.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_visualizarDesenho.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_visualizarDesenhoActionPerformed(evt);
+            }
+        });
 
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
         jLabel1.setText("Pesquisar");
@@ -366,8 +404,29 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         jSeparator6.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
+        btn_pesquisarDesenhos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Pesquisar2_16.png"))); // NOI18N
+        btn_pesquisarDesenhos.setToolTipText("Pesquisar");
+        btn_pesquisarDesenhos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_pesquisarDesenhos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_pesquisarDesenhosActionPerformed(evt);
+            }
+        });
+
+        btn_limpaCamposPesquisa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Limpar_16.png"))); // NOI18N
+        btn_limpaCamposPesquisa.setToolTipText("Limpar Pesquisa");
+        btn_limpaCamposPesquisa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_limpaCamposPesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_limpaCamposPesquisaActionPerformed(evt);
+            }
+        });
+
+        jSeparator15.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        jSeparator16.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
         txt_pesquisaFaca.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        txt_pesquisaFaca.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txt_pesquisaFaca.setToolTipText("Faca");
         txt_pesquisaFaca.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -376,7 +435,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
 
         txt_pesquisaComprimento.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        txt_pesquisaComprimento.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txt_pesquisaComprimento.setToolTipText("Comprimento");
         txt_pesquisaComprimento.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -385,7 +443,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
 
         txt_pesquisaLargura.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        txt_pesquisaLargura.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txt_pesquisaLargura.setToolTipText("Largura");
         txt_pesquisaLargura.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -394,7 +451,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
 
         txt_pesquisaAltura.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        txt_pesquisaAltura.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txt_pesquisaAltura.setToolTipText("Altura");
         txt_pesquisaAltura.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -414,6 +470,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addComponent(btn_visualizarDesenho)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane1)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addGap(34, 34, 34)
@@ -426,55 +483,62 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
-                .addGap(2, 2, 2)
+                .addGap(0, 0, 0)
                 .addComponent(txt_pesquisaComprimento, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
-                .addGap(2, 2, 2)
+                .addGap(0, 0, 0)
                 .addComponent(txt_pesquisaLargura, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
-                .addGap(2, 2, 2)
+                .addGap(0, 0, 0)
                 .addComponent(txt_pesquisaAltura, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 464, Short.MAX_VALUE))
-            .addComponent(jScrollPane1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_pesquisarDesenhos)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator15, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_limpaCamposPesquisa)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator16, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 333, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2)
-                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3)
-                        .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel4)
-                        .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel5)
-                        .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txt_pesquisaFaca, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txt_pesquisaComprimento, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txt_pesquisaLargura, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txt_pesquisaAltura, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(txt_pesquisaFaca, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(txt_pesquisaComprimento, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(txt_pesquisaLargura, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(txt_pesquisaAltura, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_pesquisarDesenhos)
+                    .addComponent(jSeparator15, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_limpaCamposPesquisa)
+                    .addComponent(jSeparator16, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_editarDesenho)
                     .addComponent(btn_escluirDesenho)
                     .addComponent(btn_visualizarDesenho))
-                .addContainerGap())
+                .addGap(0, 0, 0))
         );
-
-        txt_pesquisaFaca.getAccessibleContext().setAccessibleName("");
 
         javax.swing.GroupLayout jPanelPesquisarLayout = new javax.swing.GroupLayout(jPanelPesquisar);
         jPanelPesquisar.setLayout(jPanelPesquisarLayout);
@@ -522,7 +586,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         cb_cadastrarAbas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "*" }));
 
         cb_cadastrarColagem.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        cb_cadastrarColagem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "*" }));
+        cb_cadastrarColagem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "*", "Lateral", "Fundo Automático", "Outros" }));
 
         txt_cadastrarAltura.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
@@ -538,30 +602,30 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel11.setText("Altura:");
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Cancelar2_32.png"))); // NOI18N
-        jButton3.setToolTipText("Cancelar");
-        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btn_cancelarCadastroDesenho.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Cancelar2_32.png"))); // NOI18N
+        btn_cancelarCadastroDesenho.setToolTipText("Cancelar");
+        btn_cancelarCadastroDesenho.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_cancelarCadastroDesenho.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btn_cancelarCadastroDesenhoActionPerformed(evt);
             }
         });
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Limpar_32.png"))); // NOI18N
-        jButton4.setToolTipText("Limpar");
-        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btn_LimpaCamposCadastroDesenho.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Limpar_32.png"))); // NOI18N
+        btn_LimpaCamposCadastroDesenho.setToolTipText("Limpar");
+        btn_LimpaCamposCadastroDesenho.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_LimpaCamposCadastroDesenho.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btn_LimpaCamposCadastroDesenhoActionPerformed(evt);
             }
         });
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Confirmar2_32.png"))); // NOI18N
-        jButton5.setToolTipText("Salvar");
-        jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btn_salvaCadastroDesenho.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Confirmar2_32.png"))); // NOI18N
+        btn_salvaCadastroDesenho.setToolTipText("Salvar");
+        btn_salvaCadastroDesenho.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_salvaCadastroDesenho.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btn_salvaCadastroDesenhoActionPerformed(evt);
             }
         });
 
@@ -608,11 +672,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
             .addComponent(jSeparator12)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton3)
+                .addComponent(btn_cancelarCadastroDesenho)
                 .addGap(18, 18, 18)
-                .addComponent(jButton4)
+                .addComponent(btn_LimpaCamposCadastroDesenho)
                 .addGap(18, 18, 18)
-                .addComponent(jButton5)
+                .addComponent(btn_salvaCadastroDesenho)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jSeparator14, javax.swing.GroupLayout.Alignment.TRAILING)
         );
@@ -673,9 +737,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 .addComponent(jSeparator14, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5))
+                    .addComponent(btn_cancelarCadastroDesenho)
+                    .addComponent(btn_LimpaCamposCadastroDesenho)
+                    .addComponent(btn_salvaCadastroDesenho))
                 .addContainerGap())
         );
 
@@ -711,15 +775,244 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
+        jl_config.setForeground(new java.awt.Color(102, 102, 102));
+        jl_config.setText("Definições");
+
+        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastro de Abas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(102, 102, 102))); // NOI18N
+
+        cb_cadastroAbas.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        cb_cadastroAbas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "*", "Lateral", "Fundo Automático", "Outros" }));
+
+        jl_config3.setForeground(new java.awt.Color(102, 102, 102));
+
+        txt_cadastroAbas.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+
+        btn_criarAba.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Adicionar_16.png"))); // NOI18N
+        btn_criarAba.setToolTipText("Adicionar");
+        btn_criarAba.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        btn_removerAba.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Remover_16.png"))); // NOI18N
+        btn_removerAba.setToolTipText("Remover");
+        btn_removerAba.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        btn_limpaCamposCadastroAba.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Limpar_16.png"))); // NOI18N
+        btn_limpaCamposCadastroAba.setToolTipText("Limpar");
+        btn_limpaCamposCadastroAba.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        tb_abasOutros.setAutoCreateRowSorter(true);
+        tb_abasOutros.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        tb_abasOutros.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Outros"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tb_abasOutros.setMinimumSize(new java.awt.Dimension(105, 80));
+        tb_abasOutros.getTableHeader().setReorderingAllowed(false);
+        jScrollPane3.setViewportView(tb_abasOutros);
+        if (tb_abasOutros.getColumnModel().getColumnCount() > 0) {
+            tb_abasOutros.getColumnModel().getColumn(0).setMinWidth(40);
+            tb_abasOutros.getColumnModel().getColumn(0).setPreferredWidth(40);
+            tb_abasOutros.getColumnModel().getColumn(0).setMaxWidth(40);
+            tb_abasOutros.getColumnModel().getColumn(1).setResizable(false);
+        }
+
+        tb_abasFundoAutomatico.setAutoCreateRowSorter(true);
+        tb_abasFundoAutomatico.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        tb_abasFundoAutomatico.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Fundo Automático"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tb_abasFundoAutomatico.setMinimumSize(new java.awt.Dimension(105, 80));
+        tb_abasFundoAutomatico.getTableHeader().setReorderingAllowed(false);
+        jScrollPane4.setViewportView(tb_abasFundoAutomatico);
+        if (tb_abasFundoAutomatico.getColumnModel().getColumnCount() > 0) {
+            tb_abasFundoAutomatico.getColumnModel().getColumn(0).setMinWidth(40);
+            tb_abasFundoAutomatico.getColumnModel().getColumn(0).setPreferredWidth(40);
+            tb_abasFundoAutomatico.getColumnModel().getColumn(0).setMaxWidth(40);
+            tb_abasFundoAutomatico.getColumnModel().getColumn(1).setResizable(false);
+        }
+
+        tb_abasLateral.setAutoCreateRowSorter(true);
+        tb_abasLateral.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        tb_abasLateral.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Lateral"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tb_abasLateral.setMinimumSize(new java.awt.Dimension(105, 80));
+        tb_abasLateral.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(tb_abasLateral);
+        if (tb_abasLateral.getColumnModel().getColumnCount() > 0) {
+            tb_abasLateral.getColumnModel().getColumn(0).setMinWidth(40);
+            tb_abasLateral.getColumnModel().getColumn(0).setPreferredWidth(40);
+            tb_abasLateral.getColumnModel().getColumn(0).setMaxWidth(40);
+            tb_abasLateral.getColumnModel().getColumn(1).setResizable(false);
+        }
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cb_cadastroAbas, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jl_config3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txt_cadastroAbas, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_criarAba)
+                .addGap(0, 0, 0)
+                .addComponent(btn_removerAba)
+                .addGap(0, 0, 0)
+                .addComponent(btn_limpaCamposCadastroAba)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jl_config3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_cadastroAbas, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_criarAba)
+                    .addComponent(btn_removerAba)
+                    .addComponent(btn_limpaCamposCadastroAba)
+                    .addComponent(cb_cadastroAbas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, 0))
+        );
+
+        jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Local de arquivos para visualização", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(102, 102, 102))); // NOI18N
+
+        txt_localPasta.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+
+        btn_escolherCaminho.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Reticencias_16.png"))); // NOI18N
+        btn_escolherCaminho.setToolTipText("Escolher");
+        btn_escolherCaminho.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_escolherCaminho.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_escolherCaminhoActionPerformed(evt);
+            }
+        });
+
+        btn_salvarCaminho.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Confirmar2_16.png"))); // NOI18N
+        btn_salvarCaminho.setToolTipText("Salvar");
+        btn_salvarCaminho.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_salvarCaminho.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_salvarCaminhoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txt_localPasta, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btn_escolherCaminho)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btn_salvarCaminho)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(txt_localPasta, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_escolherCaminho)
+                    .addComponent(btn_salvarCaminho))
+                .addGap(0, 0, 0))
+        );
+
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 998, Short.MAX_VALUE)
+            .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addComponent(jl_config)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 552, Short.MAX_VALUE)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addComponent(jl_config)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(258, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanelConfigLayout = new javax.swing.GroupLayout(jPanelConfig);
@@ -844,11 +1137,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1000, Short.MAX_VALUE)
+            .addGap(0, 1015, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 554, Short.MAX_VALUE)
+            .addGap(0, 521, Short.MAX_VALUE)
         );
 
         jPanelAdminPrincipal.add(jPanel2, "card2");
@@ -857,11 +1150,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1000, Short.MAX_VALUE)
+            .addGap(0, 1015, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 554, Short.MAX_VALUE)
+            .addGap(0, 521, Short.MAX_VALUE)
         );
 
         jPanelAdminPrincipal.add(jPanel4, "card3");
@@ -870,11 +1163,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1000, Short.MAX_VALUE)
+            .addGap(0, 1015, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 554, Short.MAX_VALUE)
+            .addGap(0, 521, Short.MAX_VALUE)
         );
 
         jPanelAdminPrincipal.add(jPanel5, "card4");
@@ -972,16 +1265,16 @@ public class FrmPrincipal extends javax.swing.JFrame {
         MostraCard_jPanelPrincipal("adminPrincipal");
     }//GEN-LAST:event_btn_administrarActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btn_cancelarCadastroDesenhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarCadastroDesenhoActionPerformed
         // TODO add your handling code here:
         LimpaCamposCadastro();
         MostraCard_jPanelPrincipal("pesquisar");
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btn_cancelarCadastroDesenhoActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btn_LimpaCamposCadastroDesenhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LimpaCamposCadastroDesenhoActionPerformed
         // TODO add your handling code here:
         LimpaCamposCadastro();
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btn_LimpaCamposCadastroDesenhoActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
@@ -989,16 +1282,27 @@ public class FrmPrincipal extends javax.swing.JFrame {
         MostraCard_jPanelPrincipal("pesquisar");
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void btn_salvaCadastroDesenhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salvaCadastroDesenhoActionPerformed
         // TODO add your handling code here:
         CadastrarDesenho();
         LimpaCamposCadastro();
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_btn_salvaCadastroDesenhoActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
         ListarDesenhos();
     }//GEN-LAST:event_formWindowActivated
+
+    private void btn_pesquisarDesenhosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pesquisarDesenhosActionPerformed
+        // TODO add your handling code here:
+        PesquisarDesenhos();
+    }//GEN-LAST:event_btn_pesquisarDesenhosActionPerformed
+
+    private void btn_limpaCamposPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_limpaCamposPesquisaActionPerformed
+        // TODO add your handling code here:
+        LimpaCamposPesquisa();
+        ListarDesenhos();
+    }//GEN-LAST:event_btn_limpaCamposPesquisaActionPerformed
 
     private void txt_pesquisaFacaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_pesquisaFacaKeyPressed
         // TODO add your handling code here:
@@ -1019,6 +1323,37 @@ public class FrmPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         PesquisarDesenhos();
     }//GEN-LAST:event_txt_pesquisaAlturaKeyPressed
+
+    private void btn_escolherCaminhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_escolherCaminhoActionPerformed
+        // TODO add your handling code here:
+        JFileChooser file = new JFileChooser();
+        file.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        int i = file.showSaveDialog(null);
+        if (i == 1) {
+            txt_localPasta.setText("");
+        } else {
+            File arquivo = file.getSelectedFile();
+            txt_localPasta.setText(arquivo.getPath());
+        }
+    }//GEN-LAST:event_btn_escolherCaminhoActionPerformed
+
+    private void btn_salvarCaminhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salvarCaminhoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_salvarCaminhoActionPerformed
+
+    private void btn_visualizarDesenhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_visualizarDesenhoActionPerformed
+        // TODO add your handling code here:
+        if (tb_desenhos.getSelectedRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "Nenhum registro selecionado!", "", 2);
+        } else {
+            Desktop desktop = Desktop.getDesktop();
+            try {
+                desktop.open(new File(txt_localPasta + "\\" + tb_desenhos.getValueAt(tb_desenhos.getSelectedRow(), 0).toString()));
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Arquivo não encontrado!", "", 2);
+            }
+        }
+    }//GEN-LAST:event_btn_visualizarDesenhoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1057,24 +1392,32 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_LimpaCamposCadastroDesenho;
     private javax.swing.JButton btn_administrar;
     private javax.swing.JButton btn_cadastrarDesenho;
+    private javax.swing.JButton btn_cancelarCadastroDesenho;
     private javax.swing.JButton btn_configurar;
+    private javax.swing.JButton btn_criarAba;
     private javax.swing.JButton btn_editarDesenho;
     private javax.swing.JButton btn_escluirDesenho;
+    private javax.swing.JButton btn_escolherCaminho;
+    private javax.swing.JButton btn_limpaCamposCadastroAba;
+    private javax.swing.JButton btn_limpaCamposPesquisa;
     private javax.swing.JButton btn_logar;
     private javax.swing.JButton btn_logout;
     private javax.swing.JButton btn_pesquisar;
+    private javax.swing.JButton btn_pesquisarDesenhos;
+    private javax.swing.JButton btn_removerAba;
+    private javax.swing.JButton btn_salvaCadastroDesenho;
+    private javax.swing.JButton btn_salvarCaminho;
     private javax.swing.JButton btn_visualizarDesenho;
     private javax.swing.JComboBox<String> cb_cadastrarAbas;
     private javax.swing.JComboBox<String> cb_cadastrarBerco;
     private javax.swing.JComboBox<String> cb_cadastrarColagem;
     private javax.swing.JComboBox<String> cb_cadastrarPromocional;
+    private javax.swing.JComboBox<String> cb_cadastroAbas;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1092,6 +1435,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1107,12 +1452,17 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelPesquisar;
     private javax.swing.JPanel jPanelPrincipal;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator12;
     private javax.swing.JSeparator jSeparator13;
     private javax.swing.JSeparator jSeparator14;
+    private javax.swing.JSeparator jSeparator15;
+    private javax.swing.JSeparator jSeparator16;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
@@ -1121,12 +1471,19 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
+    private javax.swing.JLabel jl_config;
+    private javax.swing.JLabel jl_config3;
     private javax.swing.JLabel lb_usuario;
+    private javax.swing.JTable tb_abasFundoAutomatico;
+    private javax.swing.JTable tb_abasLateral;
+    private javax.swing.JTable tb_abasOutros;
     private javax.swing.JTable tb_desenhos;
     private javax.swing.JTextField txt_cadastrarAltura;
     private javax.swing.JTextField txt_cadastrarComprimento;
     private javax.swing.JTextField txt_cadastrarFaca;
     private javax.swing.JTextField txt_cadastrarLargura;
+    private javax.swing.JTextField txt_cadastroAbas;
+    private javax.swing.JTextField txt_localPasta;
     private javax.swing.JTextField txt_loginNome;
     private javax.swing.JPasswordField txt_loginSenha;
     private javax.swing.JTextField txt_pesquisaAltura;
