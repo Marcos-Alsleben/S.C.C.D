@@ -14,7 +14,15 @@ import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import sccd.dao.AbasFundoAutomaticoDAO;
+import sccd.dao.AbasLateralDAO;
+import sccd.dao.AbasOutrosDAO;
+import sccd.dao.CaminhoArteDAO;
 import sccd.dao.DesenhosDAO;
+import sccd.model.AbasFundoAutomatico;
+import sccd.model.AbasLateral;
+import sccd.model.AbasOutros;
+import sccd.model.CaminhoArte;
 import sccd.model.Desenhos;
 
 /**
@@ -83,25 +91,29 @@ public class FrmPrincipal extends javax.swing.JFrame {
                                     if ("*".equals(cb_cadastrarPromocional.getSelectedItem().toString())) {
                                         JOptionPane.showMessageDialog(null, "Campo Promocional Iválido!", "", 2);
                                     } else {
+                                        
+                                        Desenhos obj = new Desenhos();
+                                        obj.setFaca(Integer.parseInt(txt_cadastrarFaca.getText()));
+                                        obj.setComprimento(Float.parseFloat(txt_cadastrarComprimento.getText().replace(",", ".")));
+                                        obj.setLargura(Float.parseFloat(txt_cadastrarLargura.getText().replace(",", ".")));
+                                        obj.setAltura(Float.parseFloat(txt_cadastrarAltura.getText().replace(",", ".")));
+                                        obj.setColagem(cb_cadastrarColagem.getSelectedItem().toString());
+                                        obj.setAbas(cb_cadastrarAbas.getSelectedItem().toString());
+                                        obj.setBerco(cb_cadastrarBerco.getSelectedItem().toString());
+                                        obj.setPromocional(cb_cadastrarPromocional.getSelectedItem().toString());
+                                        obj.setCadastradopor(lb_usuario.getText());
+                                        obj.setDatahora(DH());
+
+                                        obj.setId(Integer.parseInt(lb_cadastroId.getText()));
+
                                         if (flagfaca == true) {
-                                            Desenhos obj = new Desenhos();
-                                            obj.setFaca(Integer.parseInt(txt_cadastrarFaca.getText()));
-                                            obj.setComprimento(Float.parseFloat(txt_cadastrarComprimento.getText().replace(",", ".")));
-                                            obj.setLargura(Float.parseFloat(txt_cadastrarLargura.getText().replace(",", ".")));
-                                            obj.setAltura(Float.parseFloat(txt_cadastrarAltura.getText().replace(",", ".")));
-                                            obj.setColagem(cb_cadastrarColagem.getSelectedItem().toString());
-                                            obj.setAbas(cb_cadastrarAbas.getSelectedItem().toString());
-                                            obj.setBerco(cb_cadastrarBerco.getSelectedItem().toString());
-                                            obj.setPromocional(cb_cadastrarPromocional.getSelectedItem().toString());
-                                            obj.setCadastradopor(lb_usuario.getText());
-                                            obj.setDatahora(DH());
 
                                             DesenhosDAO dao = new DesenhosDAO();
-
                                             dao.cadastrar(obj);
 
-                                        }else{
-                                        
+                                        } else {
+                                            DesenhosDAO dao = new DesenhosDAO();
+                                            dao.alterar(obj);
                                         }
 
                                     }
@@ -113,6 +125,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         }
     }
+
     //Metodo listar desenhos
     public void ListarDesenhos() {
         DesenhosDAO dao = new DesenhosDAO();
@@ -121,6 +134,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         dados.setNumRows(0);
         for (Desenhos c : lista) {
             dados.addRow(new Object[]{
+                c.getId(),
                 c.getFaca(),
                 c.getComprimento(),
                 c.getLargura(),
@@ -132,6 +146,60 @@ public class FrmPrincipal extends javax.swing.JFrame {
             });
 
         }
+    }
+
+    //Metodo listar Abas Lateral
+    public void ListarAbasLateral() {
+        AbasLateralDAO dao = new AbasLateralDAO();
+        List<AbasLateral> lista = dao.listar();
+        DefaultTableModel dados = (DefaultTableModel) tb_abasLateral.getModel();
+        dados.setNumRows(0);
+        for (AbasLateral c : lista) {
+            dados.addRow(new Object[]{
+                c.getId(),
+                c.getTipo(),});
+
+        }
+    }
+
+    //Metodo listar Abas Fundo Automatico
+    public void ListarAbasFundoAutomatico() {
+        AbasFundoAutomaticoDAO dao = new AbasFundoAutomaticoDAO();
+        List<AbasFundoAutomatico> lista = dao.listar();
+        DefaultTableModel dados = (DefaultTableModel) tb_abasFundoAutomatico.getModel();
+        dados.setNumRows(0);
+        for (AbasFundoAutomatico c : lista) {
+            dados.addRow(new Object[]{
+                c.getId(),
+                c.getTipo(),});
+
+        }
+    }
+
+    //Metodo listar Abas Outros
+    public void ListarAbasOutros() {
+        AbasOutrosDAO dao = new AbasOutrosDAO();
+        List<AbasOutros> lista = dao.listar();
+        DefaultTableModel dados = (DefaultTableModel) tb_abasOutros.getModel();
+        dados.setNumRows(0);
+        for (AbasOutros c : lista) {
+            dados.addRow(new Object[]{
+                c.getId(),
+                c.getTipo(),});
+
+        }
+    }
+
+    //Metodo cadastrar Caminho Arte
+    public void AlterarCaminhoArte() {
+        CaminhoArte obj = new CaminhoArte ();
+        obj.setEndereco(txt_localPasta.getText());
+        obj.setCadastradopor(lb_usuario.getText());
+        obj.setDatahora(DH());
+        obj.setId(1);
+
+        CaminhoArteDAO dao = new CaminhoArteDAO();
+        dao.alterar(obj);
     }
 
     //Metodo mostrar cardLayout do jPanelPrincipal
@@ -181,6 +249,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
     public FrmPrincipal() {
         initComponents();
         this.setLocationRelativeTo(null);
+        
+        //CaminhoArteDAO dao = new CaminhoArteDAO();
+        //CaminhoArte endereco = (CaminhoArte) dao.listar();
+        //txt_localPasta.setText(endereco.getEndereco().toString());
     }
 
     /**
@@ -256,6 +328,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btn_LimpaCamposCadastroDesenho = new javax.swing.JButton();
         btn_salvaCadastroDesenho = new javax.swing.JButton();
         jSeparator14 = new javax.swing.JSeparator();
+        lb_cadastroId = new javax.swing.JLabel();
         jPanelConfig = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
         jl_config = new javax.swing.JLabel();
@@ -276,6 +349,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         txt_localPasta = new javax.swing.JTextField();
         btn_escolherCaminho = new javax.swing.JButton();
         btn_salvarCaminho = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jPanelLogin = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
@@ -681,6 +755,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
 
+        lb_cadastroId.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        lb_cadastroId.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
@@ -731,11 +808,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 .addComponent(btn_salvaCadastroDesenho)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jSeparator14, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(lb_cadastroId, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+            .addGroup(jPanel9Layout.createSequentialGroup()
                 .addGap(0, 0, 0)
+                .addComponent(lb_cadastroId, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel8)
                     .addComponent(txt_cadastrarFaca, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -791,7 +871,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_cancelarCadastroDesenho)
                     .addComponent(btn_LimpaCamposCadastroDesenho)
-                    .addComponent(btn_salvaCadastroDesenho)))
+                    .addComponent(btn_salvaCadastroDesenho))
+                .addGap(0, 0, 0))
         );
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -808,7 +889,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(107, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanelCadastrarLayout = new javax.swing.GroupLayout(jPanelCadastrar);
@@ -1045,6 +1126,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 .addGap(0, 0, 0))
         );
 
+        jButton3.setText("jButton3");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
@@ -1054,6 +1142,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 .addComponent(jl_config)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGap(413, 413, 413)
+                .addComponent(jButton3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1063,7 +1155,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(258, Short.MAX_VALUE))
+                .addGap(53, 53, 53)
+                .addComponent(jButton3)
+                .addContainerGap(173, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanelConfigLayout = new javax.swing.GroupLayout(jPanelConfig);
@@ -1342,6 +1436,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
         ListarDesenhos();
+
     }//GEN-LAST:event_formWindowActivated
 
     private void btn_pesquisarDesenhosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pesquisarDesenhosActionPerformed
@@ -1390,6 +1485,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     private void btn_salvarCaminhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salvarCaminhoActionPerformed
         // TODO add your handling code here:
+        AlterarCaminhoArte();
     }//GEN-LAST:event_btn_salvarCaminhoActionPerformed
 
     private void btn_visualizarDesenhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_visualizarDesenhoActionPerformed
@@ -1456,6 +1552,12 @@ public class FrmPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_escluirDesenhoActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        CaminhoArteDAO dao = new CaminhoArteDAO();
+        CaminhoArte url = (CaminhoArte) dao.pegaEndereco();
+        txt_localPasta.setText(url.toString());
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1519,6 +1621,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cb_cadastroAbas;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1574,6 +1677,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator9;
     private javax.swing.JLabel jl_config;
     private javax.swing.JLabel jl_config3;
+    private javax.swing.JLabel lb_cadastroId;
     private javax.swing.JLabel lb_usuario;
     private javax.swing.JTable tb_abasFundoAutomatico;
     private javax.swing.JTable tb_abasLateral;

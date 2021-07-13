@@ -13,7 +13,7 @@ USE BDPROJETOSCAD;
 
 /***** TABELA DESENHOS *****/
 CREATE TABLE tb_desenhos (
-id int primary key auto increment unique,
+id int primary key auto_increment unique,
 faca int unique,
 comprimento float (5.2),
 largura float (5.2),
