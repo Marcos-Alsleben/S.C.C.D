@@ -59,23 +59,60 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     //Metodo cadastrar desenho
     public void CadastrarDesenho() {
-        Desenhos obj = new Desenhos();
-        obj.setFaca(Integer.parseInt(txt_cadastrarFaca.getText()));
-        obj.setComprimento(Float.parseFloat(txt_cadastrarComprimento.getText().replace(",", ".")));
-        obj.setLargura(Float.parseFloat(txt_cadastrarLargura.getText().replace(",", ".")));
-        obj.setAltura(Float.parseFloat(txt_cadastrarAltura.getText().replace(",", ".")));
-        obj.setColagem(cb_cadastrarColagem.getSelectedItem().toString());
-        obj.setAbas(cb_cadastrarAbas.getSelectedItem().toString());
-        obj.setBerco(cb_cadastrarBerco.getSelectedItem().toString());
-        obj.setPromocional(cb_cadastrarPromocional.getSelectedItem().toString());
-        obj.setOperador(lb_usuario.getText());
-        obj.setDatahora(DH());
+        if ("".equals(txt_cadastrarFaca.getText())) {
+            JOptionPane.showMessageDialog(null, "Campo faca Inválido!", "", 2);
+        } else {
+            if ("".equals(txt_cadastrarComprimento.getText())) {
+                JOptionPane.showMessageDialog(null, "Campo Comprimento Inválido!", "", 2);
+            } else {
+                if ("".equals(txt_cadastrarLargura.getText())) {
+                    JOptionPane.showMessageDialog(null, "Campo Largura Inválido!", "", 2);
+                } else {
+                    if ("".equals(txt_cadastrarAltura.getText())) {
+                        JOptionPane.showMessageDialog(null, "Campo Altura Inválido!", "", 2);
+                    } else {
+                        if ("*".equals(cb_cadastrarColagem.getSelectedItem().toString())) {
+                            JOptionPane.showMessageDialog(null, "Campo Colagem Iválido!", "", 2);
+                        } else {
+                            if ("*".equals(cb_cadastrarAbas.getSelectedItem().toString())) {
+                                JOptionPane.showMessageDialog(null, "Campo Abas Iválido!", "", 2);
+                            } else {
+                                if ("*".equals(cb_cadastrarBerco.getSelectedItem().toString())) {
+                                    JOptionPane.showMessageDialog(null, "Campo Berço Iválido!", "", 2);
+                                } else {
+                                    if ("*".equals(cb_cadastrarPromocional.getSelectedItem().toString())) {
+                                        JOptionPane.showMessageDialog(null, "Campo Promocional Iválido!", "", 2);
+                                    } else {
+                                        if (flagfaca == true) {
+                                            Desenhos obj = new Desenhos();
+                                            obj.setFaca(Integer.parseInt(txt_cadastrarFaca.getText()));
+                                            obj.setComprimento(Float.parseFloat(txt_cadastrarComprimento.getText().replace(",", ".")));
+                                            obj.setLargura(Float.parseFloat(txt_cadastrarLargura.getText().replace(",", ".")));
+                                            obj.setAltura(Float.parseFloat(txt_cadastrarAltura.getText().replace(",", ".")));
+                                            obj.setColagem(cb_cadastrarColagem.getSelectedItem().toString());
+                                            obj.setAbas(cb_cadastrarAbas.getSelectedItem().toString());
+                                            obj.setBerco(cb_cadastrarBerco.getSelectedItem().toString());
+                                            obj.setPromocional(cb_cadastrarPromocional.getSelectedItem().toString());
+                                            obj.setCadastradopor(lb_usuario.getText());
+                                            obj.setDatahora(DH());
 
-        DesenhosDAO dao = new DesenhosDAO();
+                                            DesenhosDAO dao = new DesenhosDAO();
 
-        dao.cadastrar(obj);
+                                            dao.cadastrar(obj);
+
+                                        }else{
+                                        
+                                        }
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
-
     //Metodo listar desenhos
     public void ListarDesenhos() {
         DesenhosDAO dao = new DesenhosDAO();
@@ -119,6 +156,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         cb_cadastrarAbas.setSelectedItem("*");
         cb_cadastrarBerco.setSelectedItem("*");
         cb_cadastrarPromocional.setSelectedItem("*");
+
+        txt_cadastrarFaca.setEnabled(true);
     }
 
     //Metodo limpar campos de login
@@ -134,6 +173,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
         txt_pesquisaLargura.setText("");
         txt_pesquisaAltura.setText("");
     }
+
+    //variáveis global
+    boolean flagfaca = true;
 
     //Construtor
     public FrmPrincipal() {
@@ -301,7 +343,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btn_logout.setToolTipText("Logout");
         btn_logout.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btn_logout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btn_logout.setEnabled(false);
 
         lb_usuario.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lb_usuario.setText("convidado");
@@ -315,20 +356,20 @@ public class FrmPrincipal extends javax.swing.JFrame {
         tb_desenhos.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         tb_desenhos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Faca", "Comprimento", "Largura", "Altura", "Colagem", "Abas", "Berço", "Promocional"
+                "id", "Faca", "Comprimento", "Largura", "Altura", "Colagem", "Abas", "Berço", "Promocional"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -342,33 +383,44 @@ public class FrmPrincipal extends javax.swing.JFrame {
         tb_desenhos.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tb_desenhos);
         if (tb_desenhos.getColumnModel().getColumnCount() > 0) {
-            tb_desenhos.getColumnModel().getColumn(0).setResizable(false);
-            tb_desenhos.getColumnModel().getColumn(0).setPreferredWidth(80);
+            tb_desenhos.getColumnModel().getColumn(0).setMinWidth(15);
+            tb_desenhos.getColumnModel().getColumn(0).setPreferredWidth(15);
+            tb_desenhos.getColumnModel().getColumn(0).setMaxWidth(15);
             tb_desenhos.getColumnModel().getColumn(1).setResizable(false);
-            tb_desenhos.getColumnModel().getColumn(1).setPreferredWidth(40);
+            tb_desenhos.getColumnModel().getColumn(1).setPreferredWidth(80);
             tb_desenhos.getColumnModel().getColumn(2).setResizable(false);
             tb_desenhos.getColumnModel().getColumn(2).setPreferredWidth(40);
             tb_desenhos.getColumnModel().getColumn(3).setResizable(false);
             tb_desenhos.getColumnModel().getColumn(3).setPreferredWidth(40);
             tb_desenhos.getColumnModel().getColumn(4).setResizable(false);
-            tb_desenhos.getColumnModel().getColumn(4).setPreferredWidth(100);
+            tb_desenhos.getColumnModel().getColumn(4).setPreferredWidth(40);
             tb_desenhos.getColumnModel().getColumn(5).setResizable(false);
             tb_desenhos.getColumnModel().getColumn(5).setPreferredWidth(100);
             tb_desenhos.getColumnModel().getColumn(6).setResizable(false);
-            tb_desenhos.getColumnModel().getColumn(6).setPreferredWidth(20);
+            tb_desenhos.getColumnModel().getColumn(6).setPreferredWidth(100);
             tb_desenhos.getColumnModel().getColumn(7).setResizable(false);
             tb_desenhos.getColumnModel().getColumn(7).setPreferredWidth(20);
+            tb_desenhos.getColumnModel().getColumn(8).setResizable(false);
+            tb_desenhos.getColumnModel().getColumn(8).setPreferredWidth(20);
         }
 
         btn_editarDesenho.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Editar_24.png"))); // NOI18N
         btn_editarDesenho.setToolTipText("Alterar");
         btn_editarDesenho.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btn_editarDesenho.setEnabled(false);
+        btn_editarDesenho.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_editarDesenhoActionPerformed(evt);
+            }
+        });
 
         btn_escluirDesenho.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Remover_24.png"))); // NOI18N
         btn_escluirDesenho.setToolTipText("Remover");
         btn_escluirDesenho.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btn_escluirDesenho.setEnabled(false);
+        btn_escluirDesenho.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_escluirDesenhoActionPerformed(evt);
+            }
+        });
 
         btn_visualizarDesenho.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Visualizar_24.png"))); // NOI18N
         btn_visualizarDesenho.setToolTipText("Visualizar");
@@ -682,7 +734,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel8)
@@ -739,8 +791,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_cancelarCadastroDesenho)
                     .addComponent(btn_LimpaCamposCadastroDesenho)
-                    .addComponent(btn_salvaCadastroDesenho))
-                .addContainerGap())
+                    .addComponent(btn_salvaCadastroDesenho)))
         );
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -1354,6 +1405,56 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btn_visualizarDesenhoActionPerformed
+
+    private void btn_editarDesenhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editarDesenhoActionPerformed
+        // TODO add your handling code here:
+        if (tb_desenhos.getSelectedRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "Nenhum registro selecionado!", "", 2);
+        } else {
+            String c0 = tb_desenhos.getValueAt(tb_desenhos.getSelectedRow(), 0).toString();
+            String c1 = tb_desenhos.getValueAt(tb_desenhos.getSelectedRow(), 1).toString();
+            String c2 = tb_desenhos.getValueAt(tb_desenhos.getSelectedRow(), 2).toString();
+            String c3 = tb_desenhos.getValueAt(tb_desenhos.getSelectedRow(), 3).toString();
+            String c4 = tb_desenhos.getValueAt(tb_desenhos.getSelectedRow(), 4).toString();
+            String c5 = tb_desenhos.getValueAt(tb_desenhos.getSelectedRow(), 5).toString();
+            String c6 = tb_desenhos.getValueAt(tb_desenhos.getSelectedRow(), 6).toString();
+            String c7 = tb_desenhos.getValueAt(tb_desenhos.getSelectedRow(), 7).toString();
+
+            txt_cadastrarFaca.setText(c0);
+            txt_cadastrarComprimento.setText(c1);
+            txt_cadastrarLargura.setText(c2);
+            txt_cadastrarAltura.setText(c3);
+            cb_cadastrarColagem.setSelectedItem(c4);
+            cb_cadastrarAbas.setSelectedItem(c5);
+            cb_cadastrarBerco.setSelectedItem(c6);
+            cb_cadastrarPromocional.setSelectedItem(c7);
+
+            txt_cadastrarFaca.setEnabled(false);
+            flagfaca = false;
+
+            MostraCard_jPanelPrincipal("cadastrar");
+        }
+    }//GEN-LAST:event_btn_editarDesenhoActionPerformed
+
+    private void btn_escluirDesenhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_escluirDesenhoActionPerformed
+        // TODO add your handling code here:
+        if (tb_desenhos.getSelectedRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "Nenhum registro selecionado!", "", 2);
+        } else {
+            String rp = tb_desenhos.getValueAt(tb_desenhos.getSelectedRow(), 0).toString();
+            int resposta = JOptionPane.showConfirmDialog(null, "Excluir Faca " + rp + "?", "", JOptionPane.YES_NO_OPTION);
+
+            if (resposta == 0) {
+                Desenhos obj = new Desenhos();
+
+                obj.setFaca(Integer.parseInt(tb_desenhos.getValueAt(tb_desenhos.getSelectedRow(), 0).toString()));
+
+                DesenhosDAO dao = new DesenhosDAO();
+
+                dao.excluir(obj);
+            }
+        }
+    }//GEN-LAST:event_btn_escluirDesenhoActionPerformed
 
     /**
      * @param args the command line arguments

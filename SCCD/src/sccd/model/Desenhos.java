@@ -21,7 +21,7 @@ public class Desenhos {
     private String abas;
     private String berco;
     private String promocional;
-    private String operador;
+    private String cadastradopor;
     private String datahora;
     
     //Getters e Setters
@@ -98,12 +98,12 @@ public class Desenhos {
         this.promocional = promocional;
     }
 
-    public String getOperador() {
-        return operador;
+    public String getCadastradopor() {
+        return cadastradopor;
     }
 
-    public void setOperador(String operador) {
-        this.operador = operador;
+    public void setCadastradopor(String cadastradopor) {
+        this.cadastradopor = cadastradopor;
     }
 
     public String getDatahora() {
@@ -113,5 +113,7 @@ public class Desenhos {
     public void setDatahora(String datahora) {
         this.datahora = datahora;
     }
+
+    
     
 }

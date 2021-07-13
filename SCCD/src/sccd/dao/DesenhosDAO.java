@@ -31,7 +31,7 @@ public class DesenhosDAO {
         try {
             //Cria comando sql
             String sql = "insert into tb_desenhos (faca, comprimento, largura, altura, colagem, abas, "
-                    +"berco, promocional, operador, datahora) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    +"berco, promocional, cadastradopor, datahora) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             
             //Conecta ao banco de dados e organiza o comando sql
             PreparedStatement stmt = con.prepareStatement(sql);
@@ -43,7 +43,7 @@ public class DesenhosDAO {
             stmt.setString(6, obj.getAbas());
             stmt.setString(7, obj.getBerco());
             stmt.setString(8, obj.getPromocional());
-            stmt.setString(9, obj.getOperador());
+            stmt.setString(9, obj.getCadastradopor());
             stmt.setString(10, obj.getDatahora());
             
             //Executa o comando sql
@@ -62,7 +62,7 @@ public class DesenhosDAO {
         try {
             //Cria comando sql
             String sql = "update tb_desenhos set "
-                    +"faca=?, comprimento=?, largura=?, altura=?, colagem=?, abas=?, berco=?, promocional=?, operador=?, datahora=? "
+                    +"faca=?, comprimento=?, largura=?, altura=?, colagem=?, abas=?, berco=?, promocional=?, cadastradopor=?, datahora=? "
                     +"where id=?";
             
             //Conecta ao banco de dados e organiza o comando sql
@@ -75,7 +75,7 @@ public class DesenhosDAO {
             stmt.setString(6, obj.getAbas());
             stmt.setString(7, obj.getBerco());
             stmt.setString(8, obj.getPromocional());
-            stmt.setString(9, obj.getOperador());
+            stmt.setString(9, obj.getCadastradopor());
             stmt.setString(10, obj.getDatahora());
             stmt.setInt(11, obj.getId());
             
@@ -125,6 +125,7 @@ public class DesenhosDAO {
             while (rs.next()){
                 
                 Desenhos obj = new Desenhos();
+                obj.setId(rs.getInt("id"));
                 obj.setFaca(rs.getInt("faca"));
                 obj.setComprimento(rs.getFloat("comprimento"));
                 obj.setLargura(rs.getFloat("largura"));
@@ -133,7 +134,7 @@ public class DesenhosDAO {
                 obj.setAbas(rs.getString("abas"));
                 obj.setBerco(rs.getString("berco"));
                 obj.setPromocional(rs.getString("promocional"));
-                obj.setOperador(rs.getString("operador"));
+                obj.setCadastradopor(rs.getString("cadastradopor"));
                 obj.setDatahora(rs.getString("datahora"));
                 
                 //Executa
@@ -167,6 +168,7 @@ public class DesenhosDAO {
             while (rs.next()){
                 
                 Desenhos obj = new Desenhos();
+                obj.setId(rs.getInt("id"));
                 obj.setFaca(rs.getInt("faca"));
                 obj.setComprimento(rs.getFloat("comprimento"));
                 obj.setLargura(rs.getFloat("largura"));
@@ -175,7 +177,7 @@ public class DesenhosDAO {
                 obj.setAbas(rs.getString("abas"));
                 obj.setBerco(rs.getString("berco"));
                 obj.setPromocional(rs.getString("promocional"));
-                obj.setOperador(rs.getString("operador"));
+                obj.setCadastradopor(rs.getString("cadastradopor"));
                 obj.setDatahora(rs.getString("datahora"));
                 
                 //Executa

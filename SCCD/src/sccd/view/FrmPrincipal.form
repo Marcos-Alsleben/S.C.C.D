@@ -171,7 +171,6 @@
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursor em Forma de M&#xe3;o"/>
             </Property>
-            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lb_usuario">
@@ -324,7 +323,8 @@
                               <Font name="Dialog" size="14" style="0"/>
                             </Property>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="8" rowCount="4">
+                              <Table columnCount="9" rowCount="4">
+                                <Column editable="false" title="id" type="java.lang.Integer"/>
                                 <Column editable="false" title="Faca" type="java.lang.Integer"/>
                                 <Column editable="false" title="Comprimento" type="java.lang.Object"/>
                                 <Column editable="false" title="Largura" type="java.lang.Object"/>
@@ -337,6 +337,11 @@
                             </Property>
                             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                               <TableColumnModel selectionModel="0">
+                                <Column maxWidth="15" minWidth="15" prefWidth="15" resizable="true">
+                                  <Title/>
+                                  <Editor/>
+                                  <Renderer/>
+                                </Column>
                                 <Column maxWidth="-1" minWidth="-1" prefWidth="80" resizable="false">
                                   <Title/>
                                   <Editor/>
@@ -395,8 +400,10 @@
                         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                           <Color id="Cursor em Forma de M&#xe3;o"/>
                         </Property>
-                        <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_editarDesenhoActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="btn_escluirDesenho">
                       <Properties>
@@ -407,8 +414,10 @@
                         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                           <Color id="Cursor em Forma de M&#xe3;o"/>
                         </Property>
-                        <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_escluirDesenhoActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="btn_visualizarDesenho">
                       <Properties>
@@ -700,14 +709,14 @@
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="2" attributes="0">
                                       <Component id="jLabel8" alignment="2" min="-2" max="-2" attributes="0"/>
                                       <Component id="txt_cadastrarFaca" alignment="2" min="-2" pref="27" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
                                           <Component id="jSeparator7" min="-2" pref="10" max="-2" attributes="0"/>
                                           <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                                           <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
@@ -769,7 +778,6 @@
                                       <Component id="btn_LimpaCamposCadastroDesenho" min="-2" max="-2" attributes="0"/>
                                       <Component id="btn_salvaCadastroDesenho" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
