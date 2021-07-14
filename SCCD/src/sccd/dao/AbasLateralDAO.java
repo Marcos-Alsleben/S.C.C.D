@@ -77,7 +77,7 @@ public class AbasLateralDAO {
     public void excluir(AbasLateral obj){
         try {
             //Cria o comando sql
-            String sql = "delete from tb_abaslateral where id";
+            String sql = "delete from tb_abaslateral where id=?";
             
             //Conecta ao banco de dados e organiza o comando sql
             PreparedStatement stmt = con.prepareStatement(sql);

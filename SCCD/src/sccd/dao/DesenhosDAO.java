@@ -93,7 +93,7 @@ public class DesenhosDAO {
     public void excluir(Desenhos obj){
         try {
             //Cria o comando sql
-            String sql = "delete from tb_desenhos where id";
+            String sql = "delete from tb_desenhos where id=?";
             
             //Conecta ao banco de dados e organiza o comando sql
             PreparedStatement stmt = con.prepareStatement(sql);

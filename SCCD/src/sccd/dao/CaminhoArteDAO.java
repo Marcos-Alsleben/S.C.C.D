@@ -77,7 +77,7 @@ public class CaminhoArteDAO {
     public void excluir(CaminhoArte obj) {
         try {
             //Cria o comando sql
-            String sql = "delete from tb_caminhoarte where id";
+            String sql = "delete from tb_caminhoarte where id=?";
 
             //Conecta ao banco de dados e organiza o comando sql
             PreparedStatement stmt = con.prepareStatement(sql);
