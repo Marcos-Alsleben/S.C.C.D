@@ -3,6 +3,7 @@
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="title" type="java.lang.String" value="S.C.C.D"/>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[1000, 640]"/>
     </Property>
@@ -881,7 +882,7 @@
                             </Property>
                           </Properties>
                           <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value=""/>
                           </AuxValues>
                         </Component>
                         <Component class="javax.swing.JComboBox" name="cb_cadastrarColagem">
@@ -898,8 +899,11 @@
                               </StringArray>
                             </Property>
                           </Properties>
+                          <Events>
+                            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cb_cadastrarColagemItemStateChanged"/>
+                          </Events>
                           <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value=""/>
                           </AuxValues>
                         </Component>
                         <Component class="javax.swing.JTextField" name="txt_cadastrarAltura">
@@ -1112,11 +1116,11 @@
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="cb_cadastroAbas" min="-2" pref="199" max="-2" attributes="0"/>
+                                  <Component id="cb_cadastrarAbasConfig" min="-2" pref="199" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jl_config3" min="-2" pref="40" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txt_cadastroAbas" min="-2" pref="200" max="-2" attributes="0"/>
+                                  <Component id="txt_cadastroAbasConfig" min="-2" pref="200" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="btn_criarAba" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
@@ -1132,11 +1136,11 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="2" attributes="0">
                                       <Component id="jl_config3" alignment="2" min="-2" pref="24" max="-2" attributes="0"/>
-                                      <Component id="txt_cadastroAbas" alignment="2" min="-2" pref="24" max="-2" attributes="0"/>
+                                      <Component id="txt_cadastroAbasConfig" alignment="2" min="-2" pref="24" max="-2" attributes="0"/>
                                       <Component id="btn_criarAba" alignment="2" min="-2" max="-2" attributes="0"/>
                                       <Component id="btn_removerAba" alignment="2" min="-2" max="-2" attributes="0"/>
                                       <Component id="btn_limpaCamposCadastroAba" alignment="2" min="-2" max="-2" attributes="0"/>
-                                      <Component id="cb_cadastroAbas" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="cb_cadastrarAbasConfig" alignment="2" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -1150,7 +1154,7 @@
                         </DimensionLayout>
                       </Layout>
                       <SubComponents>
-                        <Component class="javax.swing.JComboBox" name="cb_cadastroAbas">
+                        <Component class="javax.swing.JComboBox" name="cb_cadastrarAbasConfig">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Dialog" size="14" style="0"/>
@@ -1175,7 +1179,7 @@
                             </Property>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="txt_cadastroAbas">
+                        <Component class="javax.swing.JTextField" name="txt_cadastroAbasConfig">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Dialog" size="14" style="0"/>
@@ -1192,6 +1196,9 @@
                               <Color id="Cursor em Forma de M&#xe3;o"/>
                             </Property>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_criarAbaActionPerformed"/>
+                          </Events>
                         </Component>
                         <Component class="javax.swing.JButton" name="btn_removerAba">
                           <Properties>
@@ -1214,6 +1221,9 @@
                               <Color id="Cursor em Forma de M&#xe3;o"/>
                             </Property>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_limpaCamposCadastroAbaActionPerformed"/>
+                          </Events>
                         </Component>
                         <Container class="javax.swing.JScrollPane" name="jScrollPane3">
                           <AuxValues>

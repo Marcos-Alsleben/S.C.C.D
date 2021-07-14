@@ -91,7 +91,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
                                     if ("*".equals(cb_cadastrarPromocional.getSelectedItem().toString())) {
                                         JOptionPane.showMessageDialog(null, "Campo Promocional Iválido!", "", 2);
                                     } else {
-                                        
+
                                         Desenhos obj = new Desenhos();
                                         obj.setFaca(Integer.parseInt(txt_cadastrarFaca.getText()));
                                         obj.setComprimento(Float.parseFloat(txt_cadastrarComprimento.getText().replace(",", ".")));
@@ -192,7 +192,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     //Metodo cadastrar Caminho Arte
     public void AlterarCaminhoArte() {
-        CaminhoArte obj = new CaminhoArte ();
+        CaminhoArte obj = new CaminhoArte();
         obj.setEndereco(txt_localPasta.getText());
         obj.setCadastradopor(lb_usuario.getText());
         obj.setDatahora(DH());
@@ -241,6 +241,96 @@ public class FrmPrincipal extends javax.swing.JFrame {
         txt_pesquisaLargura.setText("");
         txt_pesquisaAltura.setText("");
     }
+    
+    //Metodo limpar campos de cadastro abas config
+    public void LimpaCamposCadastroAbas(){
+        
+        txt_cadastroAbasConfig.setText("");
+        cb_cadastrarAbasConfig.setSelectedItem("*");
+        
+    }
+
+    //Metodo cadastrar abas de colagem
+    public void CadastrarAbasConfig() {
+
+        if ("Lateral".equals(cb_cadastrarAbasConfig.getSelectedItem().toString())) {
+            AbasLateral obj = new AbasLateral();
+            obj.setTipo(txt_cadastroAbasConfig.getText());
+            obj.setCadastradopor(lb_usuario.getText());
+            obj.setDatahora(DH());
+
+            AbasLateralDAO dao = new AbasLateralDAO();
+            dao.cadastrar(obj);
+        } else {
+            if ("Fundo Automático".equals(cb_cadastrarAbasConfig.getSelectedItem().toString())) {
+                AbasFundoAutomatico obj = new AbasFundoAutomatico();
+                obj.setTipo(txt_cadastroAbasConfig.getText());
+                obj.setCadastradopor(lb_usuario.getText());
+                obj.setDatahora(DH());
+
+                AbasFundoAutomaticoDAO dao = new AbasFundoAutomaticoDAO();
+                dao.cadastrar(obj);
+            } else {
+                if ("Outros".equals(cb_cadastrarAbasConfig.getSelectedItem().toString())) {
+                    AbasOutros obj = new AbasOutros();
+                    obj.setTipo(txt_cadastroAbasConfig.getText());
+                    obj.setCadastradopor(lb_usuario.getText());
+                    obj.setDatahora(DH());
+
+                    AbasOutrosDAO dao = new AbasOutrosDAO();
+                    dao.cadastrar(obj);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Campo Colagem Iválido!", "", 2);
+                }
+            }
+        } 
+        LimpaCamposCadastroAbas();
+    }
+
+        //Metodo Atualizar cb_cadastrarAbas conforme seleção do cb_cadastrarColagem
+    public void Atualiza_cbCadastrarAbas() {
+        if (cb_cadastrarColagem.getSelectedItem() == "Lateral") {
+            AbasLateralDAO dao = new AbasLateralDAO();
+            List<AbasLateral> lista = dao.listar();
+
+            cb_cadastrarAbas.removeAllItems();
+            cb_cadastrarAbas.addItem("*");
+
+            for (AbasLateral c : lista) {
+                cb_cadastrarAbas.addItem(c.getTipo());
+
+            }
+        } else {
+            if (cb_cadastrarColagem.getSelectedItem() == "Fundo Automático") {
+                AbasFundoAutomaticoDAO dao = new AbasFundoAutomaticoDAO();
+                List<AbasFundoAutomatico> lista = dao.listar();
+
+                cb_cadastrarAbas.removeAllItems();
+                cb_cadastrarAbas.addItem("*");
+
+                for (AbasFundoAutomatico c : lista) {
+                    cb_cadastrarAbas.addItem(c.getTipo());
+
+                }
+            } else {
+                if (cb_cadastrarColagem.getSelectedItem() == "Outros") {
+                    AbasOutrosDAO dao = new AbasOutrosDAO();
+                    List<AbasOutros> lista = dao.listar();
+
+                    cb_cadastrarAbas.removeAllItems();
+                    cb_cadastrarAbas.addItem("*");
+
+                    for (AbasOutros c : lista) {
+                        cb_cadastrarAbas.addItem(c.getTipo());
+
+                    }
+                } else {
+                    cb_cadastrarAbas.removeAllItems();
+                    cb_cadastrarAbas.addItem("*");
+                }
+            }
+        }
+    }
 
     //variáveis global
     boolean flagfaca = true;
@@ -249,7 +339,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     public FrmPrincipal() {
         initComponents();
         this.setLocationRelativeTo(null);
-        
+
         //CaminhoArteDAO dao = new CaminhoArteDAO();
         //CaminhoArte endereco = (CaminhoArte) dao.listar();
         //txt_localPasta.setText(endereco.getEndereco().toString());
@@ -309,8 +399,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         cb_cadastrarPromocional = new javax.swing.JComboBox<>();
         cb_cadastrarBerco = new javax.swing.JComboBox<>();
-        cb_cadastrarAbas = new javax.swing.JComboBox<>();
-        cb_cadastrarColagem = new javax.swing.JComboBox<>();
+        cb_cadastrarAbas = new javax.swing.JComboBox();
+        cb_cadastrarColagem = new javax.swing.JComboBox();
         txt_cadastrarAltura = new javax.swing.JTextField();
         txt_cadastrarComprimento = new javax.swing.JTextField();
         txt_cadastrarLargura = new javax.swing.JTextField();
@@ -333,9 +423,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jPanel10 = new javax.swing.JPanel();
         jl_config = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
-        cb_cadastroAbas = new javax.swing.JComboBox<>();
+        cb_cadastrarAbasConfig = new javax.swing.JComboBox<>();
         jl_config3 = new javax.swing.JLabel();
-        txt_cadastroAbas = new javax.swing.JTextField();
+        txt_cadastroAbasConfig = new javax.swing.JTextField();
         btn_criarAba = new javax.swing.JButton();
         btn_removerAba = new javax.swing.JButton();
         btn_limpaCamposCadastroAba = new javax.swing.JButton();
@@ -366,6 +456,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btn_logar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("S.C.C.D");
         setMinimumSize(new java.awt.Dimension(1000, 640));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
@@ -709,10 +800,15 @@ public class FrmPrincipal extends javax.swing.JFrame {
         cb_cadastrarBerco.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "*", "Sim", "Não" }));
 
         cb_cadastrarAbas.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        cb_cadastrarAbas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "*" }));
+        cb_cadastrarAbas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "*" }));
 
         cb_cadastrarColagem.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        cb_cadastrarColagem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "*", "Lateral", "Fundo Automático", "Outros" }));
+        cb_cadastrarColagem.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "*", "Lateral", "Fundo Automático", "Outros" }));
+        cb_cadastrarColagem.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cb_cadastrarColagemItemStateChanged(evt);
+            }
+        });
 
         txt_cadastrarAltura.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
@@ -912,16 +1008,21 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastro de Abas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(102, 102, 102))); // NOI18N
 
-        cb_cadastroAbas.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        cb_cadastroAbas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "*", "Lateral", "Fundo Automático", "Outros" }));
+        cb_cadastrarAbasConfig.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        cb_cadastrarAbasConfig.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "*", "Lateral", "Fundo Automático", "Outros" }));
 
         jl_config3.setForeground(new java.awt.Color(102, 102, 102));
 
-        txt_cadastroAbas.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        txt_cadastroAbasConfig.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
         btn_criarAba.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Adicionar_16.png"))); // NOI18N
         btn_criarAba.setToolTipText("Adicionar");
         btn_criarAba.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_criarAba.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_criarAbaActionPerformed(evt);
+            }
+        });
 
         btn_removerAba.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Remover_16.png"))); // NOI18N
         btn_removerAba.setToolTipText("Remover");
@@ -930,6 +1031,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btn_limpaCamposCadastroAba.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Limpar_16.png"))); // NOI18N
         btn_limpaCamposCadastroAba.setToolTipText("Limpar");
         btn_limpaCamposCadastroAba.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_limpaCamposCadastroAba.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_limpaCamposCadastroAbaActionPerformed(evt);
+            }
+        });
 
         tb_abasOutros.setAutoCreateRowSorter(true);
         tb_abasOutros.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -1049,11 +1155,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(cb_cadastroAbas, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cb_cadastrarAbasConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jl_config3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txt_cadastroAbas, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txt_cadastroAbasConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_criarAba)
                 .addGap(0, 0, 0)
@@ -1067,11 +1173,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jl_config3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_cadastroAbas, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_cadastroAbasConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_criarAba)
                     .addComponent(btn_removerAba)
                     .addComponent(btn_limpaCamposCadastroAba)
-                    .addComponent(cb_cadastroAbas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cb_cadastrarAbasConfig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1436,6 +1542,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
         ListarDesenhos();
+        ListarAbasLateral();
+        ListarAbasFundoAutomatico();
+        ListarAbasOutros();
 
     }//GEN-LAST:event_formWindowActivated
 
@@ -1558,6 +1667,21 @@ public class FrmPrincipal extends javax.swing.JFrame {
         txt_localPasta.setText(url.toString());
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void btn_criarAbaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_criarAbaActionPerformed
+        // TODO add your handling code here:
+        CadastrarAbasConfig();
+    }//GEN-LAST:event_btn_criarAbaActionPerformed
+
+    private void cb_cadastrarColagemItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_cadastrarColagemItemStateChanged
+        // TODO add your handling code here:
+        Atualiza_cbCadastrarAbas();
+    }//GEN-LAST:event_cb_cadastrarColagemItemStateChanged
+
+    private void btn_limpaCamposCadastroAbaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_limpaCamposCadastroAbaActionPerformed
+        // TODO add your handling code here:
+        LimpaCamposCadastroAbas();
+    }//GEN-LAST:event_btn_limpaCamposCadastroAbaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1614,11 +1738,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btn_salvaCadastroDesenho;
     private javax.swing.JButton btn_salvarCaminho;
     private javax.swing.JButton btn_visualizarDesenho;
-    private javax.swing.JComboBox<String> cb_cadastrarAbas;
+    private javax.swing.JComboBox cb_cadastrarAbas;
+    private javax.swing.JComboBox<String> cb_cadastrarAbasConfig;
     private javax.swing.JComboBox<String> cb_cadastrarBerco;
-    private javax.swing.JComboBox<String> cb_cadastrarColagem;
+    private javax.swing.JComboBox cb_cadastrarColagem;
     private javax.swing.JComboBox<String> cb_cadastrarPromocional;
-    private javax.swing.JComboBox<String> cb_cadastroAbas;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -1687,7 +1811,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField txt_cadastrarComprimento;
     private javax.swing.JTextField txt_cadastrarFaca;
     private javax.swing.JTextField txt_cadastrarLargura;
-    private javax.swing.JTextField txt_cadastroAbas;
+    private javax.swing.JTextField txt_cadastroAbasConfig;
     private javax.swing.JTextField txt_localPasta;
     private javax.swing.JTextField txt_loginNome;
     private javax.swing.JPasswordField txt_loginSenha;
