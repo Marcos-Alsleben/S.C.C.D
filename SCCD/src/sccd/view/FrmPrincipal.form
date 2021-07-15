@@ -338,7 +338,7 @@
                             </Property>
                             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                               <TableColumnModel selectionModel="0">
-                                <Column maxWidth="15" minWidth="15" prefWidth="15" resizable="true">
+                                <Column maxWidth="70" minWidth="20" prefWidth="20" resizable="true">
                                   <Title/>
                                   <Editor/>
                                   <Renderer/>
@@ -861,8 +861,8 @@
                             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                               <StringArray count="3">
                                 <StringItem index="0" value="*"/>
-                                <StringItem index="1" value="Sim"/>
-                                <StringItem index="2" value="N&#xe3;o"/>
+                                <StringItem index="1" value="Com"/>
+                                <StringItem index="2" value="Sem"/>
                               </StringArray>
                             </Property>
                           </Properties>
@@ -1013,7 +1013,10 @@
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Dialog" size="14" style="1"/>
                             </Property>
-                            <Property name="horizontalAlignment" type="int" value="0"/>
+                            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                              <Color blue="99" green="99" red="99" type="rgb"/>
+                            </Property>
+                            <Property name="horizontalAlignment" type="int" value="2"/>
                           </Properties>
                         </Component>
                       </SubComponents>
@@ -1081,7 +1084,7 @@
                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="66" green="66" red="66" type="rgb"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="Defini&#xe7;&#xf5;es"/>
+                        <Property name="text" type="java.lang.String" value="Configura&#xe7;&#xe3;o"/>
                       </Properties>
                     </Component>
                     <Container class="javax.swing.JPanel" name="jPanel11">
@@ -1111,7 +1114,7 @@
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Component id="cb_cadastrarAbasConfig" min="-2" pref="199" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="lb_idAbasConfig" min="-2" pref="40" max="-2" attributes="0"/>
+                                  <Component id="lb_idAbasConfig" min="-2" pref="50" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="txt_cadastroAbasConfig" min="-2" pref="200" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -1171,9 +1174,9 @@
                               <Font name="Dialog" size="14" style="1"/>
                             </Property>
                             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                              <Color blue="66" green="66" red="66" type="rgb"/>
+                              <Color blue="99" green="99" red="99" type="rgb"/>
                             </Property>
-                            <Property name="horizontalAlignment" type="int" value="0"/>
+                            <Property name="horizontalAlignment" type="int" value="4"/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JTextField" name="txt_cadastroAbasConfig">
@@ -1186,7 +1189,7 @@
                         <Component class="javax.swing.JButton" name="btn_criarAba">
                           <Properties>
                             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                              <Image iconType="3" name="/imagens/Adicionar_16.png"/>
+                              <Image iconType="3" name="/imagens/Confirmar2_16.png"/>
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" value="Salvar"/>
                             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
