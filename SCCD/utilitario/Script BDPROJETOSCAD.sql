@@ -15,10 +15,10 @@ USE BDPROJETOSCAD;
 CREATE TABLE tb_desenhos (
 id int primary key auto_increment unique,
 faca int unique,
-comprimento float (5.2),
-largura float (5.2),
-altura float (5.2),
-colagem varchar (30),
+comprimento float(5,2),
+largura float(5,2),
+altura float(5,2),
+colagem varchar(30),
 abas varchar (30),
 berco varchar(30),
 promocional varchar(30),
@@ -31,8 +31,8 @@ datahora TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP
 CREATE TABLE tb_empresa (
 id int auto_increment primary key,
 nome varchar(50),
-endereco varchar (50),
-telefone varchar (20),
+endereco varchar(50),
+telefone varchar(20),
 observacao varchar(200)
 );
 /*****************/
@@ -41,8 +41,8 @@ observacao varchar(200)
 CREATE TABLE tb_conta (
 id int auto_increment primary key,
 nome varchar(35),
-senha varchar (10),
-previlegio varchar (20)
+senha varchar(10),
+previlegio varchar(20)
 );
 /*****************/
 

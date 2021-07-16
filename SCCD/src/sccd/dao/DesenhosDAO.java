@@ -148,14 +148,15 @@ public class DesenhosDAO {
     }
     
     //Metoda Pesquisar
-    public List<Desenhos> pesquisar(String faca, String comprimento, String largura, String altura){
+    public List<Desenhos> pesquisar(String faca, String comprimento, String largura, String altura, String colagem, String abas){
         
         try {
             //Cria a Lista
             List<Desenhos> lista = new ArrayList<>();
             
             //Cria comando sql
-            String sql = "select * from tb_desenhos where faca like? and comprimento like? and largura like? and altura like?";
+            String sql = "select * from tb_desenhos where faca like? and comprimento like? and largura like? and altura like?" +
+                    "and colagem like? and abas like?";
             
             //Conecta ao banco de dados e organiza o comando sql
             PreparedStatement stmt = con.prepareStatement(sql);
@@ -163,6 +164,8 @@ public class DesenhosDAO {
             stmt.setString(2, comprimento);                        
             stmt.setString(3, largura);                        
             stmt.setString(4, altura);                        
+            stmt.setString(5, colagem);                        
+            stmt.setString(6, abas);                        
             ResultSet rs = stmt.executeQuery();
             
             while (rs.next()){
