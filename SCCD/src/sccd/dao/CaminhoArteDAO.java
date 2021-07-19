@@ -27,7 +27,7 @@ public class CaminhoArteDAO {
     }
 
     //Metodo cadastrar
-    public void cadastrar(CaminhoArte obj) {
+    /*public void cadastrar(CaminhoArte obj) {
         try {
             //Cria comando sql
             String sql = "insert into tb_caminhoarte (endereco, cadastradopor, datahora) values (?, ?, ?)";
@@ -47,7 +47,7 @@ public class CaminhoArteDAO {
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(null, "Erro: " + erro);
         }
-    }
+    }*/
 
     //Metodo Alterar
     public void alterar(CaminhoArte obj) {
@@ -74,7 +74,7 @@ public class CaminhoArteDAO {
     }
 
     //Metodo Excluir
-    public void excluir(CaminhoArte obj) {
+    /*public void excluir(CaminhoArte obj) {
         try {
             //Cria o comando sql
             String sql = "delete from tb_caminhoarte where id=?";
@@ -91,7 +91,7 @@ public class CaminhoArteDAO {
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(null, "Erro: " + erro);
         }
-    }
+    }*/
 
     //Metodo Listar
     public List<CaminhoArte> listar() {
@@ -125,7 +125,7 @@ public class CaminhoArteDAO {
     }
 
     //Metodo pegar endereço
-    public Object pegaEndereco() {
+    /*public Object pegaEndereco() {
         try {
             //Cria comando sql
             String sql = "select endereco from tb_caminhoarte";
@@ -141,6 +141,6 @@ public class CaminhoArteDAO {
 
         }
         return null;
-    }
+    }*/
 
 }

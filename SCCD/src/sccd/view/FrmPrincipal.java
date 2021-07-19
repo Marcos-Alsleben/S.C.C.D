@@ -7,17 +7,12 @@ package sccd.view;
 
 import java.awt.CardLayout;
 import java.awt.Desktop;
-import java.awt.KeyEventDispatcher;
-import java.awt.KeyboardFocusManager;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -487,6 +482,16 @@ public class FrmPrincipal extends javax.swing.JFrame {
         txt_localPasta = new javax.swing.JTextField();
         btn_escolherCaminho = new javax.swing.JButton();
         btn_salvarCaminho = new javax.swing.JButton();
+        jPanel13 = new javax.swing.JPanel();
+        lb_nomeEmpresa = new javax.swing.JLabel();
+        lb_enderecoEmpresa = new javax.swing.JLabel();
+        lb_telefoneEmpresa = new javax.swing.JLabel();
+        lb_obsEmpresa = new javax.swing.JLabel();
+        txt_nomeEmpresa = new javax.swing.JTextField();
+        txt_enderecoEmpresa = new javax.swing.JTextField();
+        txt_enderecoEmpresa1 = new javax.swing.JTextField();
+        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        jButton3 = new javax.swing.JButton();
         jPanelLogin = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
@@ -1337,6 +1342,87 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 .addGap(0, 0, 0))
         );
 
+        jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Empresa", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(102, 102, 102))); // NOI18N
+
+        lb_nomeEmpresa.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        lb_nomeEmpresa.setForeground(new java.awt.Color(102, 102, 102));
+        lb_nomeEmpresa.setText("Nome:");
+
+        lb_enderecoEmpresa.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        lb_enderecoEmpresa.setForeground(new java.awt.Color(102, 102, 102));
+        lb_enderecoEmpresa.setText("Endereço:");
+
+        lb_telefoneEmpresa.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        lb_telefoneEmpresa.setForeground(new java.awt.Color(102, 102, 102));
+        lb_telefoneEmpresa.setText("Telefone:");
+
+        lb_obsEmpresa.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        lb_obsEmpresa.setForeground(new java.awt.Color(102, 102, 102));
+        lb_obsEmpresa.setText("Observações:");
+
+        txt_nomeEmpresa.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+
+        txt_enderecoEmpresa.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+
+        txt_enderecoEmpresa1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+
+        try {
+            jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) ####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jFormattedTextField1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Confirmar2_16.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lb_obsEmpresa)
+                    .addComponent(lb_enderecoEmpresa)
+                    .addComponent(lb_nomeEmpresa))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel13Layout.createSequentialGroup()
+                        .addComponent(txt_nomeEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton3))
+                    .addGroup(jPanel13Layout.createSequentialGroup()
+                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel13Layout.createSequentialGroup()
+                                .addComponent(txt_enderecoEmpresa1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(20, 20, 20)
+                                .addComponent(lb_telefoneEmpresa)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txt_enderecoEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lb_nomeEmpresa)
+                    .addComponent(txt_nomeEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lb_enderecoEmpresa)
+                    .addComponent(txt_enderecoEmpresa1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lb_telefoneEmpresa)
+                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lb_obsEmpresa)
+                    .addComponent(txt_enderecoEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
@@ -1346,6 +1432,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 .addComponent(jl_config)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1355,7 +1442,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(258, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanelConfigLayout = new javax.swing.GroupLayout(jPanelConfig);
@@ -1993,6 +2082,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JComboBox cb_pesquisaColagem;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2012,6 +2103,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -2049,7 +2141,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator9;
     private javax.swing.JLabel jl_config;
     private javax.swing.JLabel lb_cadastroId;
+    private javax.swing.JLabel lb_enderecoEmpresa;
     private javax.swing.JLabel lb_idAbasConfig;
+    private javax.swing.JLabel lb_nomeEmpresa;
+    private javax.swing.JLabel lb_obsEmpresa;
+    private javax.swing.JLabel lb_telefoneEmpresa;
     private javax.swing.JLabel lb_usuario;
     private javax.swing.JTable tb_abasFundoAutomatico;
     private javax.swing.JTable tb_abasLateral;
@@ -2060,9 +2156,12 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField txt_cadastrarFaca;
     private javax.swing.JTextField txt_cadastrarLargura;
     private javax.swing.JTextField txt_cadastroAbasConfig;
+    private javax.swing.JTextField txt_enderecoEmpresa;
+    private javax.swing.JTextField txt_enderecoEmpresa1;
     private javax.swing.JTextField txt_localPasta;
     private javax.swing.JTextField txt_loginNome;
     private javax.swing.JPasswordField txt_loginSenha;
+    private javax.swing.JTextField txt_nomeEmpresa;
     private javax.swing.JTextField txt_pesquisaAltura;
     private javax.swing.JTextField txt_pesquisaComprimento;
     private javax.swing.JTextField txt_pesquisaFaca;

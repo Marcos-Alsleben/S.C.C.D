@@ -27,7 +27,7 @@ public class EmpresaDAO {
     }
     
     //Metodo cadastrar
-    public void cadastrarEmpresa(Empresa obj){
+    /*public void cadastrarEmpresa(Empresa obj){
         try {
             //Cria comando sql
             String sql = "insert into tb_empresa (nome, endereco, telefone, observacao)"
@@ -49,7 +49,7 @@ public class EmpresaDAO {
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(null, "Erro: " + erro);
         }
-    }
+    }*/
     
     //Metodo Alterar
     public void alterarEmpresa(Empresa obj){
@@ -76,7 +76,7 @@ public class EmpresaDAO {
     }
     
     //Metodo Excluir
-    public void excluirEmpresa(Empresa obj){
+    /*public void excluirEmpresa(Empresa obj){
         try {
             //Cria o comando sql
             String sql = "delete from tb_empresa where id=?";
@@ -93,7 +93,7 @@ public class EmpresaDAO {
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(null, "Erro: " + erro);
         }
-    }
+    }*/
     
     //Metodo Listar
     public List<Empresa> listarEmpresa(){

@@ -33,7 +33,9 @@ id int auto_increment primary key,
 nome varchar(50),
 endereco varchar(50),
 telefone varchar(20),
-observacao varchar(200)
+observacao varchar(200),
+cadastradopor varchar(100),
+datahora TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP
 );
 /*****************/
 
