@@ -1,4 +1,4 @@
- /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -20,6 +20,7 @@ import sccd.dao.AbasFundoAutomaticoDAO;
 import sccd.dao.AbasLateralDAO;
 import sccd.dao.AbasOutrosDAO;
 import sccd.dao.CaminhoArteDAO;
+import sccd.dao.ContaDAO;
 import sccd.dao.DesenhosDAO;
 import sccd.model.AbasFundoAutomatico;
 import sccd.model.AbasLateral;
@@ -32,6 +33,39 @@ import sccd.model.Desenhos;
  * @author mrs_a
  */
 public class FrmPrincipal extends javax.swing.JFrame {
+
+    //Metoto para acesso convidado
+    public void AcessoConvidado() {
+
+        lb_usuario.setText("Convidado");
+        btn_cadastrarDesenho.setEnabled(false);
+        btn_configurar.setEnabled(false);
+        btn_administrar.setEnabled(false);
+        btn_logout.setEnabled(false);
+        btn_editarDesenho.setEnabled(false);
+        btn_escluirDesenho.setEnabled(false);
+    }
+
+    //Metodo para acesso Administrador
+    public void AcessoAdmin() {
+
+        btn_cadastrarDesenho.setEnabled(true);
+        btn_configurar.setEnabled(true);
+        btn_administrar.setEnabled(true);
+        btn_logout.setEnabled(true);
+        btn_editarDesenho.setEnabled(true);
+        btn_escluirDesenho.setEnabled(true);
+    }
+
+    //Metodo para acesso usuario
+    public void AcessoUsuario() {
+
+        btn_cadastrarDesenho.setEnabled(true);
+        btn_configurar.setEnabled(true);
+        btn_logout.setEnabled(true);
+        btn_editarDesenho.setEnabled(true);
+        btn_escluirDesenho.setEnabled(true);
+    }
 
     // Metodo Pegar Data e Hora
     public String DH() {
@@ -62,18 +96,17 @@ public class FrmPrincipal extends javax.swing.JFrame {
         String altura = txt_pesquisaAltura.getText().replace(",", ".") + "%";
         String colagem;
         String abas;
-        
-        if ("*".equals(cb_pesquisaColagem.getSelectedItem())){
+
+        if ("*".equals(cb_pesquisaColagem.getSelectedItem())) {
             colagem = "%";
-        } else{
+        } else {
             colagem = "%" + cb_pesquisaColagem.getSelectedItem().toString() + "%";
         }
-        if ("*".equals(cb_pesquisaAbas.getSelectedItem())){
+        if ("*".equals(cb_pesquisaAbas.getSelectedItem())) {
             abas = "%";
-        } else{
+        } else {
             abas = "%" + cb_pesquisaAbas.getSelectedItem().toString() + "%";
         }
-        
 
         DesenhosDAO dao = new DesenhosDAO();
         List<Desenhos> lista = dao.pesquisar(faca, comprimento, largura, altura, colagem, abas);
@@ -121,7 +154,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
                                         JOptionPane.showMessageDialog(null, "Campo Promocional Iválido!", "", 2);
                                     } else {
 
-                                        Desenhos obj = new Desenhos();                                        
+                                        Desenhos obj = new Desenhos();
                                         obj.setFaca(Integer.parseInt(txt_cadastrarFaca.getText()));
                                         obj.setComprimento(Float.parseFloat(txt_cadastrarComprimento.getText().replace(",", ".")));
                                         obj.setLargura(Float.parseFloat(txt_cadastrarLargura.getText().replace(",", ".")));
@@ -133,11 +166,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
                                         obj.setCadastradopor(lb_usuario.getText());
                                         obj.setDatahora(DH());
 
-                                        if ("".equals(lb_cadastroId.getText())) {                                           
+                                        if ("".equals(lb_cadastroId.getText())) {
 
                                             DesenhosDAO dao = new DesenhosDAO();
-                                            dao.cadastrar(obj);                                           
-                                            
+                                            dao.cadastrar(obj);
+
                                             LimpaCamposCadastro();
 
                                         } else {
@@ -146,7 +179,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
                                             DesenhosDAO dao = new DesenhosDAO();
                                             dao.alterar(obj);
-                                            
+
                                             LimpaCamposCadastro();
                                         }
 
@@ -288,6 +321,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         lb_idAbasConfig.setText("");
 
     }
+
     //Metodo Atualizar cb_cadastrarAbas conforme seleção do cb_cadastrarColagem
     public void Atualiza_cbCadastrarAbas() {
         if (cb_cadastrarColagem.getSelectedItem() == "Lateral") {
@@ -332,7 +366,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         }
     }
-    
+
     //Metodo Atualizar cb_pesquisaAbas conforme seleção do cb_pesquisaColagem
     public void Atualiza_cbpesquisaAbas() {
         if (cb_pesquisaColagem.getSelectedItem() == "Lateral") {
@@ -383,6 +417,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         AtualizaCaminhoArte();
+        AcessoConvidado();
     }
 
     /**
@@ -561,7 +596,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btn_logout.setToolTipText("Logout");
         btn_logout.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btn_logout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_logoutActionPerformed(evt);
+            }
+        });
 
+        lb_usuario.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lb_usuario.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lb_usuario.setText("convidado");
         lb_usuario.setPreferredSize(new java.awt.Dimension(45, 18));
@@ -1484,6 +1525,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Confirmar2_32.png"))); // NOI18N
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Cancelar2_32.png"))); // NOI18N
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -1783,9 +1829,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
         } else {
             Desktop desktop = Desktop.getDesktop();
             try {
-                desktop.open(new File(txt_localPasta + "\\" + tb_desenhos.getValueAt(tb_desenhos.getSelectedRow(), 0).toString()));
+                desktop.open(new File(txt_localPasta.getText() + "\\" + tb_desenhos.getValueAt(tb_desenhos.getSelectedRow(), 1).toString() + ".pdf"));
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Arquivo não encontrado!", "", 2);
+                //JOptionPane.showMessageDialog(null, txt_localPasta.getText() + "\\" + tb_desenhos.getValueAt(tb_desenhos.getSelectedRow(), 1).toString() + ".pdf", "", 2);
             }
         }
     }//GEN-LAST:event_btn_visualizarDesenhoActionPerformed
@@ -2014,8 +2061,48 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private void cb_pesquisaColagemItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_pesquisaColagemItemStateChanged
         // TODO add your handling code here:
         Atualiza_cbpesquisaAbas();
-        
+
     }//GEN-LAST:event_cb_pesquisaColagemItemStateChanged
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        ContaDAO dao = new ContaDAO();
+
+        int vl = dao.efetuaLogin(txt_loginNome.getText(), txt_loginSenha.getText());
+
+        switch (vl) {
+
+            //Caso o usuario seja do tipo admin
+            case 1:
+                AcessoAdmin();
+                lb_usuario.setText(txt_loginNome.getText());
+                LimpaCamposLogin();
+                MostraCard_jPanelPrincipal("pesquisar");
+
+                break;
+
+            //Caso o usuario seja do tipo limitado
+            case 2:
+                AcessoUsuario();
+                lb_usuario.setText(txt_loginNome.getText());
+                LimpaCamposLogin();
+                MostraCard_jPanelPrincipal("pesquisar");
+
+                break;
+
+            default:
+
+                break;
+
+        }
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btn_logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_logoutActionPerformed
+
+        AcessoConvidado();
+        MostraCard_jPanelPrincipal("pesquisar");
+    }//GEN-LAST:event_btn_logoutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2146,7 +2233,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel lb_nomeEmpresa;
     private javax.swing.JLabel lb_obsEmpresa;
     private javax.swing.JLabel lb_telefoneEmpresa;
-    private javax.swing.JLabel lb_usuario;
+    public javax.swing.JLabel lb_usuario;
     private javax.swing.JTable tb_abasFundoAutomatico;
     private javax.swing.JTable tb_abasLateral;
     private javax.swing.JTable tb_abasOutros;
