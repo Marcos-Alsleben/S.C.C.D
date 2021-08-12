@@ -15,7 +15,7 @@ public class Conta {
     private int id;
     private String nome;
     private String senha;
-    private String previlegio;
+    private String privilegio;
     
     //Getters e Setters
 
@@ -43,12 +43,12 @@ public class Conta {
         this.senha = senha;
     }
 
-    public String getPrevilegio() {
-        return previlegio;
+    public String getPrivilegio() {
+        return privilegio;
     }
 
-    public void setPrevilegio(String previlegio) {
-        this.previlegio = previlegio;
+    public void setPrivilegio(String privilegio) {
+        this.privilegio = privilegio;
     }
     
     

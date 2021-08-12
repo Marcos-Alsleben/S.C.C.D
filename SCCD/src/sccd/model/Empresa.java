@@ -17,6 +17,8 @@ public class Empresa {
     private String telefone;
     private String endereco;
     private String observacao;
+    private String cadastradopor;
+    private String datahora;
     
     //Getters e Setters
 
@@ -59,7 +61,22 @@ public class Empresa {
     public void setObservacao(String observacao) {
         this.observacao = observacao;
     }
-    
-    
+
+    public String getCadastradopor() {
+        return cadastradopor;
+    }
+
+    public void setCadastradopor(String cadastradopor) {
+        this.cadastradopor = cadastradopor;
+    }
+
+    public String getDatahora() {
+        return datahora;
+    }
+
+    public void setDatahora(String datahora) {
+        this.datahora = datahora;
+    }
+
     
 }

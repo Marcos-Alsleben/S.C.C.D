@@ -52,10 +52,10 @@ public class EmpresaDAO {
     }*/
     
     //Metodo Alterar
-    public void alterarEmpresa(Empresa obj){
+    public void alterar(Empresa obj){
         try {
             //Cria comando sql
-            String sql = "update tb_empresa set nome=?, telefone=?, endereco=?, observacao=? where id=?";
+            String sql = "update tb_empresa set nome=?, telefone=?, endereco=?, observacao=?, cadastradopor=?, datahora=? where id=?";
             
             //Conecta ao banco de dados e organiza o comando sql
             PreparedStatement stmt = con.prepareStatement(sql);
@@ -63,7 +63,9 @@ public class EmpresaDAO {
             stmt.setString(2, obj.getTelefone());
             stmt.setString(3, obj.getEndereco());
             stmt.setString(4, obj.getObservacao());
-            stmt.setInt(5, obj.getId());
+            stmt.setString(5, obj.getCadastradopor());
+            stmt.setString(6, obj.getDatahora());
+            stmt.setInt(7, obj.getId());
             
             //Executa o comando sql
             stmt.execute();
@@ -96,7 +98,7 @@ public class EmpresaDAO {
     }*/
     
     //Metodo Listar
-    public List<Empresa> listarEmpresa(){
+    public List<Empresa> listar(){
         try {
             //Cria Lista
             List<Empresa> lista = new ArrayList<>();
@@ -116,6 +118,8 @@ public class EmpresaDAO {
                 obj.setTelefone(rs.getString("telefone"));
                 obj.setEndereco(rs.getString("endereco"));
                 obj.setObservacao(rs.getString("observacao"));
+                obj.setCadastradopor(rs.getString("cadastradopor"));
+                obj.setDatahora(rs.getString("datahora"));
                 
                 //Executa
                 lista.add(obj);

@@ -147,7 +147,7 @@ public class DesenhosDAO {
         }
     }
     
-    //Metoda Pesquisar
+    //Metodo Pesquisar
     public List<Desenhos> pesquisar(String faca, String comprimento, String largura, String altura, String colagem, String abas){
         
         try {
@@ -166,6 +166,48 @@ public class DesenhosDAO {
             stmt.setString(4, altura);                        
             stmt.setString(5, colagem);                        
             stmt.setString(6, abas);                        
+            ResultSet rs = stmt.executeQuery();
+            
+            while (rs.next()){
+                
+                Desenhos obj = new Desenhos();
+                obj.setId(rs.getInt("id"));
+                obj.setFaca(rs.getInt("faca"));
+                obj.setComprimento(rs.getFloat("comprimento"));
+                obj.setLargura(rs.getFloat("largura"));
+                obj.setAltura(rs.getFloat("altura"));
+                obj.setColagem(rs.getString("colagem"));
+                obj.setAbas(rs.getString("abas"));
+                obj.setBerco(rs.getString("berco"));
+                obj.setPromocional(rs.getString("promocional"));
+                obj.setCadastradopor(rs.getString("cadastradopor"));
+                obj.setDatahora(rs.getString("datahora"));
+                
+                //Executa
+                lista.add(obj);
+            }
+            return lista;
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null, "Erro:" + erro);
+            return null;
+        }
+    }
+    
+    //Metodo PesquisarAdmin
+    public List<Desenhos> pesquisarAdmin(String cadastradopor, String datahora){
+        
+        try {
+            //Cria a Lista
+            List<Desenhos> lista = new ArrayList<>();
+            
+            //Cria comando sql
+            String sql = "select * from tb_desenhos where cadastradopor like? and datahora between "+
+                    "curdate() - interval ? month and curdate()";
+            
+            //Conecta ao banco de dados e organiza o comando sql
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, cadastradopor);            
+            stmt.setString(2, datahora);                                               
             ResultSet rs = stmt.executeQuery();
             
             while (rs.next()){

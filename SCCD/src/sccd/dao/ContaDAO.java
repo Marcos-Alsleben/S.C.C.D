@@ -28,17 +28,17 @@ public class ContaDAO {
     }
 
     //Metodo cadastrar
-    public void cadastrarConta(Conta obj) {
+    public void cadastrar(Conta obj) {
         try {
             //Cria comando sql
-            String sql = "insert into tb_conta (nome, senha, previlegio)"
+            String sql = "insert into tb_conta (nome, senha, privilegio)"
                     + "values (?, ?, ?)";
 
             //Conecta ao banco de dados e organiza o comando sql
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, obj.getNome());
             stmt.setString(2, obj.getSenha());
-            stmt.setString(3, obj.getPrevilegio());
+            stmt.setString(3, obj.getPrivilegio());
 
             //Executa o comando sql
             stmt.execute();
@@ -52,16 +52,16 @@ public class ContaDAO {
     }
 
     //Metodo Alterar
-    public void alterarConta(Conta obj) {
+    public void alterar(Conta obj) {
         try {
             //Cria comando sql
-            String sql = "update tb_conta set nome=?, senha=?, previlegio=? where id=?";
+            String sql = "update tb_conta set nome=?, senha=?, privilegio=? where id=?";
 
             //Conecta ao banco de dados e organiza o comando sql
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, obj.getNome());
             stmt.setString(2, obj.getSenha());
-            stmt.setString(3, obj.getPrevilegio());
+            stmt.setString(3, obj.getPrivilegio());
             stmt.setInt(4, obj.getId());
 
             //Executa o comando sql
@@ -75,7 +75,7 @@ public class ContaDAO {
     }
 
     //Metodo Excluir
-    public void excluirConta(Conta obj) {
+    public void excluir(Conta obj) {
         try {
             //Cria o comando sql
             String sql = "delete from tb_conta where id=?";
@@ -95,7 +95,7 @@ public class ContaDAO {
     }
 
     //Metodo Listar
-    public List<Conta> listarConta() {
+    public List<Conta> listar() {
         try {
             //Cria Lista
             List<Conta> lista = new ArrayList<>();
@@ -113,7 +113,7 @@ public class ContaDAO {
                 obj.setId(rs.getInt("id"));
                 obj.setNome(rs.getString("nome"));
                 obj.setSenha(rs.getString("senha"));
-                obj.setPrevilegio(rs.getString("previlegio"));
+                obj.setPrivilegio(rs.getString("privilegio"));
 
                 //Executa
                 lista.add(obj);
@@ -141,13 +141,13 @@ public class ContaDAO {
                 //Usuario logou
 
                 //Caso o usuario seja do tipo admin
-                if (rs.getString("previlegio").equals("Admin")) {
+                if (rs.getString("privilegio").equals("Admin")) {
 
                     return (1);
                 } 
 
                 //Caso o usuario seja do tipo limitado 
-                else if (rs.getString("previlegio").equals("Usuario")) {
+                else if (rs.getString("privilegio").equals("Usuário")) {
                     
                     return (2);
 
