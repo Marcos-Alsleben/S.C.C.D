@@ -718,7 +718,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         cb_mesesRelatorio = new javax.swing.JComboBox<>();
         btn_limpaCamposRelatorio = new javax.swing.JButton();
         btn_pesquisarRelatorio = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         tb_relatorio = new javax.swing.JTable();
         jPanelLogin = new javax.swing.JPanel();
@@ -733,12 +732,15 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("S.C.C.D");
-        setMinimumSize(new java.awt.Dimension(1100, 660));
+        setMinimumSize(new java.awt.Dimension(1100, 730));
+        setPreferredSize(new java.awt.Dimension(1100, 730));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
             }
         });
+
+        jPanel3.setPreferredSize(new java.awt.Dimension(0, 0));
 
         btn_pesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Pesquisar_64.png"))); // NOI18N
         btn_pesquisar.setToolTipText("Pesquisar");
@@ -805,10 +807,21 @@ public class FrmPrincipal extends javax.swing.JFrame {
         lb_usuario.setText("convidado");
         lb_usuario.setPreferredSize(new java.awt.Dimension(45, 18));
 
+        jPanelPrincipal.setName(""); // NOI18N
+        jPanelPrincipal.setPreferredSize(new java.awt.Dimension(0, 0));
         jPanelPrincipal.setLayout(new java.awt.CardLayout());
 
+        jPanelPesquisar.setName(""); // NOI18N
+        jPanelPesquisar.setPreferredSize(new java.awt.Dimension(0, 0));
+
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        jPanel1.setMinimumSize(new java.awt.Dimension(100, 100));
+        jPanel1.setMinimumSize(new java.awt.Dimension(0, 0));
+        jPanel1.setName(""); // NOI18N
+        jPanel1.setPreferredSize(new java.awt.Dimension(0, 0));
+
+        jScrollPane1.setMinimumSize(new java.awt.Dimension(0, 0));
+        jScrollPane1.setName(""); // NOI18N
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(0, 0));
 
         tb_desenhos.setAutoCreateRowSorter(true);
         tb_desenhos.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -986,7 +999,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1078,11 +1091,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jPanelPesquisar.setLayout(jPanelPesquisarLayout);
         jPanelPesquisarLayout.setHorizontalGroup(
             jPanelPesquisarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1100, Short.MAX_VALUE)
         );
         jPanelPesquisarLayout.setVerticalGroup(
             jPanelPesquisarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
         );
 
         jPanelPrincipal.add(jPanelPesquisar, "pesquisar");
@@ -1719,7 +1732,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_limparEmpresa)
                     .addComponent(jButton3))
-                .addContainerGap(106, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2005,8 +2018,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
                     .addComponent(btn_pesquisarRelatorio)))
         );
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-
         tb_relatorio.setAutoCreateRowSorter(true);
         tb_relatorio.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         tb_relatorio.setModel(new javax.swing.table.DefaultTableModel(
@@ -2033,7 +2044,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
         tb_relatorio.setIntercellSpacing(new java.awt.Dimension(3, 3));
-        tb_relatorio.setMinimumSize(new java.awt.Dimension(100, 100));
+        tb_relatorio.setMinimumSize(new java.awt.Dimension(0, 0));
+        tb_relatorio.setName(""); // NOI18N
+        tb_relatorio.setPreferredSize(new java.awt.Dimension(0, 0));
         tb_relatorio.setRowHeight(20);
         tb_relatorio.getTableHeader().setReorderingAllowed(false);
         jScrollPane6.setViewportView(tb_relatorio);
@@ -2054,35 +2067,20 @@ public class FrmPrincipal extends javax.swing.JFrame {
             tb_relatorio.getColumnModel().getColumn(6).setPreferredWidth(150);
         }
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1096, Short.MAX_VALUE)
-            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1001, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 404, Short.MAX_VALUE)
-            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE))
-        );
-
         javax.swing.GroupLayout jPanelAdminSubRelatoriosLayout = new javax.swing.GroupLayout(jPanelAdminSubRelatorios);
         jPanelAdminSubRelatorios.setLayout(jPanelAdminSubRelatoriosLayout);
         jPanelAdminSubRelatoriosLayout.setHorizontalGroup(
             jPanelAdminSubRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         jPanelAdminSubRelatoriosLayout.setVerticalGroup(
             jPanelAdminSubRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelAdminSubRelatoriosLayout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(141, Short.MAX_VALUE))
         );
 
         jPanelAdminSubPrincipal.add(jPanelAdminSubRelatorios, "SubRelatorios");
@@ -2265,7 +2263,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
 
@@ -2273,11 +2271,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 1100, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 660, Short.MAX_VALUE)
         );
 
         pack();
@@ -2902,7 +2900,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
