@@ -733,7 +733,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("S.C.C.D");
-        setMinimumSize(new java.awt.Dimension(1100, 660));
+        setMinimumSize(new java.awt.Dimension(1100, 720));
+        setPreferredSize(new java.awt.Dimension(1100, 720));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
