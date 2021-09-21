@@ -2791,6 +2791,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         AlterarEmpresa();
+        lb_empresa.setText(txt_nomeEmpresa.getText());
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void btn_limpaCamposRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_limpaCamposRelatorioActionPerformed
