@@ -60,9 +60,14 @@
                   <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                   <Component id="btn_logar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="lb_usuario" min="-2" pref="150" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btn_logout" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="lb_usuario" min="-2" pref="150" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="btn_logout" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="lb_empresa" alignment="1" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
               <Component id="jSeparator1" alignment="1" max="32767" attributes="0"/>
@@ -78,9 +83,13 @@
                       <Component id="btn_configurar" min="-2" max="-2" attributes="0"/>
                       <Component id="btn_cadastrarDesenho" min="-2" max="-2" attributes="0"/>
                       <Component id="btn_pesquisar" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="lb_usuario" alignment="0" max="32767" attributes="0"/>
-                          <Component id="btn_logout" alignment="0" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="lb_usuario" alignment="0" max="32767" attributes="0"/>
+                              <Component id="btn_logout" alignment="0" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="lb_empresa" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="btn_logar" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -2651,6 +2660,15 @@
             </Container>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JLabel" name="lb_empresa">
+          <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="66" green="66" red="66" type="rgb"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="4"/>
+            <Property name="text" type="java.lang.String" value="jLabel16"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>

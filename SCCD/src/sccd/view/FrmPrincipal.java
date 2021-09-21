@@ -102,6 +102,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
             txt_enderecoEmpresa.setText(c.getEndereco());
             txt_telefoneEmpresa.setText(c.getTelefone());
             txt_obsEmpresa.setText(c.getObservacao());
+            lb_empresa.setText(c.getNome());
 
         }
     }
@@ -730,6 +731,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         txt_loginSenha = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        lb_empresa = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("S.C.C.D");
@@ -2227,6 +2229,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         jPanelPrincipal.add(jPanelLogin, "login");
 
+        lb_empresa.setForeground(new java.awt.Color(102, 102, 102));
+        lb_empresa.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lb_empresa.setText("jLabel16");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -2243,9 +2249,12 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 .addGap(40, 40, 40)
                 .addComponent(btn_logar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lb_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_logout)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(lb_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_logout))
+                    .addComponent(lb_empresa, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addComponent(jPanelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -2259,9 +2268,12 @@ public class FrmPrincipal extends javax.swing.JFrame {
                     .addComponent(btn_configurar)
                     .addComponent(btn_cadastrarDesenho)
                     .addComponent(btn_pesquisar)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(lb_usuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_logout, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(lb_usuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btn_logout, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(lb_empresa))
                     .addComponent(btn_logar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2942,6 +2954,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator9;
     private javax.swing.JLabel jl_config;
     private javax.swing.JLabel lb_cadastroId;
+    private javax.swing.JLabel lb_empresa;
     private javax.swing.JLabel lb_enderecoEmpresa;
     private javax.swing.JLabel lb_enderecoEmpresa1;
     private javax.swing.JLabel lb_idAbasConfig;
