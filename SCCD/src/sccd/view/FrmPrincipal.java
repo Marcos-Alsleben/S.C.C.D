@@ -974,6 +974,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         cb_pesquisaColagem.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         cb_pesquisaColagem.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "*", "Lateral", "Fundo Automático", "Outros" }));
+        cb_pesquisaColagem.setToolTipText("Tipo Colagem");
         cb_pesquisaColagem.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cb_pesquisaColagemItemStateChanged(evt);
@@ -984,6 +985,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         cb_pesquisaAbas.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         cb_pesquisaAbas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "*" }));
+        cb_pesquisaAbas.setToolTipText("Tipo Aba");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -1679,6 +1681,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         txt_telefoneEmpresa.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Confirmar2_32.png"))); // NOI18N
+        jButton3.setToolTipText("Salvar");
         jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2144,6 +2147,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         txt_loginSenha.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Senha", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14))); // NOI18N
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Confirmar2_32.png"))); // NOI18N
+        jButton1.setToolTipText("Entrar");
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2152,6 +2156,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Cancelar2_32.png"))); // NOI18N
+        jButton2.setToolTipText("Cancelar");
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2229,6 +2234,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         jPanelPrincipal.add(jPanelLogin, "login");
 
+        lb_empresa.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
         lb_empresa.setForeground(new java.awt.Color(102, 102, 102));
         lb_empresa.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lb_empresa.setText("jLabel16");
