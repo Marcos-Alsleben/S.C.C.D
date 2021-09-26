@@ -65,6 +65,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         btn_cadastrarDesenho.setEnabled(true);
         btn_configurar.setEnabled(true);
+        btn_administrar.setEnabled(false);
         btn_logout.setEnabled(true);
         btn_editarDesenho.setEnabled(true);
         btn_escluirDesenho.setEnabled(true);
