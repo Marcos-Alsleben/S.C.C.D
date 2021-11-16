@@ -116,7 +116,7 @@ public class DesenhosDAO {
             List<Desenhos> lista = new ArrayList<>();
             
             //Cria comando sql
-            String sql = "select * from tb_desenhos";
+            String sql = "select * from tb_desenhos order by faca desc";
             
             //Conecta ao banco de dados e organiza o comando sql
             PreparedStatement stmt = con.prepareStatement(sql);
@@ -156,7 +156,7 @@ public class DesenhosDAO {
             
             //Cria comando sql
             String sql = "select * from tb_desenhos where faca like? and comprimento like? and largura like? and altura like?" +
-                    "and colagem like? and abas like?";
+                    "and colagem like? and abas like? order by faca desc";
             
             //Conecta ao banco de dados e organiza o comando sql
             PreparedStatement stmt = con.prepareStatement(sql);

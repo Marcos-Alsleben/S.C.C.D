@@ -577,7 +577,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
     //Construtor
     public FrmPrincipal() {
         initComponents();
-        this.setLocationRelativeTo(null);
+        this.setExtendedState(MAXIMIZED_BOTH);
+        //this.setLocationRelativeTo(null);
         AtualizaCaminhoArte();
         AtualizaEmpresa();
         AcessoConvidado();
@@ -1946,6 +1947,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         jPanelAdminSubPrincipal.add(jPanelAdminSubCadastros, "SubCadastros");
 
+        jPanelAdminSubRelatorios.setMinimumSize(new java.awt.Dimension(100, 100));
+
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
         cb_usuarioRelatorio.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -2065,15 +2068,15 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1096, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1001, Short.MAX_VALUE))
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1096, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 404, Short.MAX_VALUE)
+            .addGap(0, 506, Short.MAX_VALUE)
             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE))
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanelAdminSubRelatoriosLayout = new javax.swing.GroupLayout(jPanelAdminSubRelatorios);
@@ -2081,15 +2084,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jPanelAdminSubRelatoriosLayout.setHorizontalGroup(
             jPanelAdminSubRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanelAdminSubRelatoriosLayout.setVerticalGroup(
             jPanelAdminSubRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelAdminSubRelatoriosLayout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 508, Short.MAX_VALUE))
         );
 
         jPanelAdminSubPrincipal.add(jPanelAdminSubRelatorios, "SubRelatorios");
